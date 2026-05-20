@@ -1,12 +1,14 @@
 # Sshelf
 
-Sshelf is a secure SSH credential manager and real-time web terminal built with Laravel 13, Livewire 3, and xterm.js. It allows you to manage multiple server credentials securely and access them directly from your browser.
+Sshelf (Secure Shelf) is a secure SSH credential manager and real-time web terminal built with Laravel 13, Livewire 3, and xterm.js. It allows you to manage multiple server credentials securely and access them directly from your browser.
+
 ## Features
 
-- **Encrypted Storage**: Server credentials (passwords/private keys) are encrypted at rest using Laravel's application key.
+- **Encrypted Vault**: Server credentials (passwords/private keys) are encrypted at rest using industry-standard AES-256-GCM.
 - **Web Terminal**: High-performance interactive terminal powered by xterm.js and Laravel Reverb.
-- **Audit Logging**: Comprehensive logs of every connection attempt, including IP addresses, user agents, and session duration.
-- **Organization**: Group servers with tags and folders for easy management.
+- **Audit Trails**: Detailed UI for viewing connection history, including IP addresses, timestamps, and session durations.
+- **Organization**: Group servers with smart tags and search for easy management.
+- **Mobile Friendly**: Fully responsive design with card views optimized for small screens.
 - **Import/Export**: Easily migrate data via JSON, CSV, or standard SSH config files.
 
 ## Deployment
@@ -15,7 +17,7 @@ Sshelf is a secure SSH credential manager and real-time web terminal built with 
 
 ### Self-Hosting (Docker)
 
-Sshelf is designed to be easily self-hosted. The simplest way is using Docker Compose:
+Sshelf is optimized for self-hosting using **FrankenPHP**. The simplest way to deploy is using Docker Compose:
 
 1. Clone the repository and enter the directory.
 2. Create your `.env` file:
@@ -41,17 +43,17 @@ Sshelf is open-source and free to use. If you find it useful and want to support
 
 Your support helps cover hosting costs and keeps the project alive!
 
-### Configuration
-...
-- **Encryption**: Make sure to keep your `APP_KEY` safe. If lost, you will lose access to all stored server passwords.
-- **Background Worker**: Sshelf uses a background PHP process for the web terminal. If your terminal isn't connecting, ensure `PHP_BINARY_PATH` in your `.env` points to your CLI PHP binary (especially on macOS with Herd).
+## Configuration
+
+- **Encryption**: Keep your `APP_KEY` safe. If lost, you will lose access to all stored server passwords.
+- **Background Worker**: Sshelf uses a background process for the terminal. Ensure `PHP_BINARY_PATH` in your `.env` points to your CLI PHP binary.
+- **Reverb**: Real-time communication is handled by Laravel Reverb. Ensure your firewall allows WebSocket traffic on the configured port.
 
 ## Installation (Manual)
 
 1. Clone the repository:
-...
    ```bash
-   git clone https://github.com/sshelf/sshelf.git
+   git clone https://github.com/syofyanzuhad/sshelf.git
    cd sshelf
    ```
 
@@ -91,7 +93,7 @@ npm run dev
 Sshelf is designed with security in mind:
 - **Authorization**: Strict Laravel Policies ensure users only access their own servers.
 - **Privacy**: Terminal sessions are broadcast over private, authenticated WebSocket channels.
-- **Audit**: All access is tracked in the `connection_logs` table.
+- **Audit**: Every access attempt is logged for complete transparency.
 
 ## License
 
