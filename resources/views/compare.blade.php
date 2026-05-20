@@ -109,6 +109,38 @@
                                 <td class="p-6 text-green-500">Yes</td>
                             </tr>
                             <tr>
+                                <td class="p-6 font-medium">SSH Key Manager</td>
+                                <td class="p-6 bg-indigo-50/30 dark:bg-indigo-900/10">
+                                    <span class="text-green-500 font-bold">Built-in (Ed25519)</span>
+                                </td>
+                                <td class="p-6 text-gray-500">Requires Agent</td>
+                                <td class="p-6 text-gray-500">Manual Creation</td>
+                            </tr>
+                            <tr>
+                                <td class="p-6 font-medium">Team Access Control (RBAC)</td>
+                                <td class="p-6 bg-indigo-50/30 dark:bg-indigo-900/10">
+                                    <span class="text-green-500 font-bold">Yes</span> (Admins/Viewers)
+                                </td>
+                                <td class="p-6 text-gray-500">Paid/Enterprise Only</td>
+                                <td class="p-6 text-red-500">None</td>
+                            </tr>
+                            <tr>
+                                <td class="p-6 font-medium">Live Health Telemetry</td>
+                                <td class="p-6 bg-indigo-50/30 dark:bg-indigo-900/10">
+                                    <span class="text-green-500 font-bold">Yes</span> (Real-time)
+                                </td>
+                                <td class="p-6 text-red-500">No</td>
+                                <td class="p-6 text-gray-500">Requires 3rd Party</td>
+                            </tr>
+                            <tr>
+                                <td class="p-6 font-medium">Programmatic API/CLI Bridge</td>
+                                <td class="p-6 bg-indigo-50/30 dark:bg-indigo-900/10">
+                                    <span class="text-green-500 font-bold">Yes</span> (Sanctum Tokens)
+                                </td>
+                                <td class="p-6 text-red-500">No</td>
+                                <td class="p-6 text-red-500">No</td>
+                            </tr>
+                            <tr>
                                 <td class="p-6 font-medium">Real-time Terminal</td>
                                 <td class="p-6 bg-indigo-50/30 dark:bg-indigo-900/10">
                                     <span class="text-green-500 font-bold">Built-in</span>
@@ -147,6 +179,18 @@
                         <h2 class="text-2xl font-bold mb-4">Security First</h2>
                         <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
                             Unlike desktop apps that store keys in obscure local directories, Sshelf uses Laravel's robust encryption layer. Every credential is encrypted at rest, and every connection is audited so you know exactly who accessed what and when.
+                        </p>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">Built for Teams</h2>
+                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                            Stop sharing private keys in Slack. Sshelf's Role-Based Access Control (RBAC) allows you to invite Viewers who can securely connect to servers through the browser without ever seeing the underlying passwords or keys.
+                        </p>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4">Automate Everything</h2>
+                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                            Desktop apps trap your infrastructure. Sshelf provides a secure CLI Bridge API via Sanctum tokens, allowing you to fetch server data or execute commands programmatically from your CI/CD pipelines.
                         </p>
                     </div>
                 </div>
