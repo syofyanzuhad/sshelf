@@ -1,0 +1,7 @@
+{
+  "name": "Sshelf",
+  "build": "dockerfile",
+  "healthcheck": "/up",
+  "envs": ["APP_KEY", "APP_URL"],
+  "ports": ["80"]
+}

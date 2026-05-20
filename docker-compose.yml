@@ -1,0 +1,56 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sshelf/app
+    container_name: sshelf-app
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      APP_NAME: "${APP_NAME:-Sshelf}"
+      APP_ENV: production
+      APP_KEY: "${APP_KEY}"
+      APP_DEBUG: "false"
+      APP_URL: "${APP_URL:-http://localhost:8080}"
+      DB_CONNECTION: pgsql
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: "${DB_DATABASE:-sshelf}"
+      DB_USERNAME: "${DB_USERNAME:-sshelf}"
+      DB_PASSWORD: "${DB_PASSWORD:-secret}"
+      CACHE_STORE: redis
+      QUEUE_CONNECTION: redis
+      SESSION_DRIVER: redis
+      REDIS_HOST: redis
+      REVERB_HOST: "0.0.0.0"
+    volumes:
+      - ./.env:/app/.env
+      - storage-data:/app/storage
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:16-alpine
+    container_name: sshelf-db
+    restart: always
+    environment:
+      POSTGRES_DB: "${DB_DATABASE:-sshelf}"
+      POSTGRES_USER: "${DB_USERNAME:-sshelf}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD:-secret}"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: sshelf-redis
+    restart: always
+    volumes:
+      - redis-data:/data
+
+volumes:
+  storage-data:
+  db-data:
+  redis-data:

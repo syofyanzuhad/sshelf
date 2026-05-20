@@ -33,7 +33,7 @@ class ServerTerminal extends Component
         Cache::put("server.{$this->server->id}.refresh", true, now()->addMinutes(1));
 
         // Attempt to start the background process using CLI PHP
-        $php = '/Users/macbookpro/Library/Application Support/Herd/bin/php';
+        $php = config('app.php_binary', PHP_BINARY);
         $artisan = base_path('artisan');
         $command = "\"{$php}\" \"{$artisan}\" app:ssh-terminal {$this->server->id} --log-id={$log->id} > /dev/null 2>&1 &";
         exec($command);
