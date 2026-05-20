@@ -43,6 +43,9 @@ new class extends Component
                     <x-nav-link :href="route('keys')" :active="request()->routeIs('keys')" wire:navigate>
                         {{ __('Keys') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('tokens')" :active="request()->routeIs('tokens')" wire:navigate>
+                        {{ __('API Tokens') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('servers.logs')" :active="request()->routeIs('servers.logs')" wire:navigate>
                         {{ __('Logs') }}
                     </x-nav-link>
@@ -112,6 +115,9 @@ new class extends Component
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('keys')" :active="request()->routeIs('keys')" wire:navigate>
                 {{ __('Keys') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('tokens')" :active="request()->routeIs('tokens')" wire:navigate>
+                {{ __('API Tokens') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('servers.logs')" :active="request()->routeIs('servers.logs')" wire:navigate>
                 {{ __('Logs') }}
