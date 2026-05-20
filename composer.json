@@ -1,8 +1,8 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "sshelf/sshelf",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "A secure SSH credential manager and real-time web terminal.",
     "keywords": [
         "laravel",
         "framework"
