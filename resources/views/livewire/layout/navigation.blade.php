@@ -25,7 +25,10 @@ new class extends Component
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}" wire:navigate class="flex items-center space-x-2 group">
                         <x-application-logo class="w-8 h-8 group-hover:scale-105 transition-transform" />
-                        <span class="text-xl font-bold text-gray-800 dark:text-gray-200 tracking-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{{ config('app.name', 'Sshelf') }}</span>
+                        <div class="flex items-center space-x-1">
+                            <span class="text-xl font-bold text-gray-800 dark:text-gray-200 tracking-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{{ config('app.name', 'Sshelf') }}</span>
+                            <span class="px-1.5 py-0.5 text-[10px] font-bold bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded uppercase">Beta</span>
+                        </div>
                     </a>
                 </div>
 

@@ -25,7 +25,10 @@
             <nav class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
                 <a href="/" class="flex items-center space-x-2 group">
                     <x-application-logo class="w-10 h-10 group-hover:scale-105 transition-transform" />
-                    <span class="text-2xl font-bold tracking-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{{ config('app.name', 'Sshelf') }}</span>
+                    <div class="flex items-baseline space-x-1">
+                        <span class="text-2xl font-bold tracking-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{{ config('app.name', 'Sshelf') }}</span>
+                        <span class="px-1.5 py-0.5 text-[10px] font-bold bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded uppercase tracking-wider">Beta</span>
+                    </div>
                 </a>
 
                 <div class="flex items-center space-x-4">

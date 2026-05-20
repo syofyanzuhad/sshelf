@@ -1,5 +1,8 @@
 # Sshelf
 
+> [!IMPORTANT]
+> **Sshelf is currently in Public Beta (v0.1.0-beta).** While core features like the encrypted vault and terminal are functional, you may encounter bugs. We recommend backing up your `APP_KEY` and testing in a safe environment.
+
 Sshelf (Secure Shelf) is a secure SSH credential manager and real-time web terminal built with Laravel 13, Livewire 3, and xterm.js. It allows you to manage multiple server credentials securely and access them directly from your browser.
 
 ## Features
