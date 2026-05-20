@@ -15,6 +15,8 @@ class ConnectionLog extends Model
     protected $fillable = [
         'server_id',
         'user_id',
+        'ip_address',
+        'user_agent',
         'connected_at',
         'disconnected_at',
         'status',

@@ -3,6 +3,7 @@
 namespace App\Livewire\Servers;
 
 use App\Models\Server;
+use App\Models\ConnectionLog;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Process;
 use Livewire\Component;
@@ -16,6 +17,15 @@ class ServerTerminal extends Component
         $this->authorize('view', $server);
         $this->server = $server;
 
+        // Create audit log
+        $log = ConnectionLog::create([
+            'server_id' => $this->server->id,
+            'user_id' => auth()->id(),
+            'ip_address' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+            'status' => 'pending',
+        ]);
+
         // Signal open status and heartbeat
         $this->heartbeat();
 
@@ -25,7 +35,7 @@ class ServerTerminal extends Component
         // Attempt to start the background process using CLI PHP
         $php = '/Users/macbookpro/Library/Application Support/Herd/bin/php';
         $artisan = base_path('artisan');
-        $command = "\"{$php}\" \"{$artisan}\" app:ssh-terminal {$this->server->id} > /dev/null 2>&1 &";
+        $command = "\"{$php}\" \"{$artisan}\" app:ssh-terminal {$this->server->id} --log-id={$log->id} > /dev/null 2>&1 &";
         exec($command);
     }
 
