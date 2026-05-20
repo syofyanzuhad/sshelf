@@ -2,6 +2,9 @@
 
 use App\Livewire\Servers\ConnectionLogs;
 use App\Livewire\Servers\ServerTerminal;
+use App\Livewire\Settings\QuickCommands;
+use App\Livewire\Settings\SshKeys;
+use App\Livewire\Settings\Users;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
@@ -12,8 +15,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::get('servers/{server}/terminal', ServerTerminal::class)->name('servers.terminal');
     Route::get('logs', ConnectionLogs::class)->name('servers.logs');
-    Route::get('commands', \App\Livewire\Settings\QuickCommands::class)->name('commands');
-    Route::get('keys', \App\Livewire\Settings\SshKeys::class)->name('keys');
+    Route::get('commands', QuickCommands::class)->name('commands');
+    Route::get('keys', SshKeys::class)->name('keys');
+    Route::get('users', Users::class)->name('users');
 });
 
 Route::view('profile', 'profile')

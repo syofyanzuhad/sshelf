@@ -59,3 +59,17 @@ test('viewers can see all servers but cannot edit them', function () {
         ->assertDontSee('Delete')
         ->assertSee('Terminal');
 });
+
+test('only admins can access user management', function () {
+    $admin = User::factory()->create(['role' => UserRole::Admin]);
+    $viewer = User::factory()->create(['role' => UserRole::Viewer]);
+
+    actingAs($admin)
+        ->get(route('users'))
+        ->assertStatus(200)
+        ->assertSee('User Management');
+
+    actingAs($viewer)
+        ->get(route('users'))
+        ->assertStatus(403);
+});

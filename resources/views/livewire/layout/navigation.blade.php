@@ -46,6 +46,11 @@ new class extends Component
                     <x-nav-link :href="route('servers.logs')" :active="request()->routeIs('servers.logs')" wire:navigate>
                         {{ __('Logs') }}
                     </x-nav-link>
+                    @can('manage', App\Models\User::class)
+                    <x-nav-link :href="route('users')" :active="request()->routeIs('users')" wire:navigate>
+                        {{ __('Users') }}
+                    </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -111,6 +116,11 @@ new class extends Component
             <x-responsive-nav-link :href="route('servers.logs')" :active="request()->routeIs('servers.logs')" wire:navigate>
                 {{ __('Logs') }}
             </x-responsive-nav-link>
+            @can('manage', App\Models\User::class)
+            <x-responsive-nav-link :href="route('users')" :active="request()->routeIs('users')" wire:navigate>
+                {{ __('Users') }}
+            </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->
