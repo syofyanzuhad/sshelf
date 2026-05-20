@@ -4,6 +4,7 @@ use App\Livewire\Servers\ServerTerminal;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
+Route::view('compare', 'compare')->name('compare');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

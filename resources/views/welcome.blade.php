@@ -142,6 +142,10 @@
 
             <!-- Footer -->
             <footer class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center text-sm text-gray-500 border-t border-gray-200 dark:border-gray-800">
+                <div class="flex justify-center space-x-6 mb-4">
+                    <a href="{{ route('compare') }}" class="hover:text-indigo-500 transition">Compare Sshelf</a>
+                    <a href="https://github.com/syofyanzuhad/sshelf" class="hover:text-indigo-500 transition">GitHub</a>
+                </div>
                 <p>&copy; {{ date('Y') }} Sshelf. Securely self-hosted for maximum privacy.</p>
             </footer>
         </div>
