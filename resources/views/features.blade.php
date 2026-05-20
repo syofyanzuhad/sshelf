@@ -182,6 +182,82 @@ protected $casts = [
                             </table>
                         </div>
                     </section>
+
+                    <!-- Real-time Health Metrics -->
+                    <section class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <div class="order-2 lg:order-1 bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-200 dark:border-gray-800 shadow-inner grid grid-cols-3 gap-4 text-center">
+                            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700">
+                                <div class="text-xs text-gray-500 mb-2 uppercase tracking-wider font-semibold">CPU</div>
+                                <div class="text-2xl font-mono text-indigo-600 dark:text-indigo-400">12.4%</div>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700">
+                                <div class="text-xs text-gray-500 mb-2 uppercase tracking-wider font-semibold">Memory</div>
+                                <div class="text-2xl font-mono text-indigo-600 dark:text-indigo-400">45.8%</div>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700">
+                                <div class="text-xs text-gray-500 mb-2 uppercase tracking-wider font-semibold">Disk</div>
+                                <div class="text-2xl font-mono text-indigo-600 dark:text-indigo-400">72.0%</div>
+                            </div>
+                            <div class="col-span-3 mt-2 text-xs text-green-500 font-mono flex items-center justify-center space-x-2">
+                                <span class="relative flex h-3 w-3">
+                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                  <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                                </span>
+                                <span>Live Reverb WebSocket Stream</span>
+                            </div>
+                        </div>
+                        <div class="order-1 lg:order-2">
+                            <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 uppercase tracking-widest mb-6">
+                                Monitoring
+                            </div>
+                            <h2 class="text-3xl font-bold mb-6">Live Health Telemetry</h2>
+                            <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                                Sshelf doesn't just manage connections; it monitors your server vitals without requiring complex agent installations on your target machines.
+                            </p>
+                            <ul class="space-y-4">
+                                <li class="flex items-start space-x-3 text-sm">
+                                    <svg class="w-5 h-5 text-yellow-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                    <span><strong>Agentless Checks</strong>: Utilizes standard SSH commands like `top` and `free` to grab data, leaving a zero-install footprint.</span>
+                                </li>
+                                <li class="flex items-start space-x-3 text-sm">
+                                    <svg class="w-5 h-5 text-yellow-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                    <span><strong>Live Dashboard</strong>: Laravel Reverb pushes new metrics to your Livewire dashboard in real-time.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- RBAC & API Bridge -->
+                    <section class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 uppercase tracking-widest mb-6">
+                                Access Management
+                            </div>
+                            <h2 class="text-3xl font-bold mb-6">RBAC & API Bridge</h2>
+                            <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                                Built for teams and automation. Sshelf implements Role-Based Access Control and secure API tokens so you can safely distribute access and script operations.
+                            </p>
+                            <ul class="space-y-4">
+                                <li class="flex items-start space-x-3 text-sm">
+                                    <svg class="w-5 h-5 text-teal-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.956 11.956 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                                    <span><strong>Admin & Viewer Roles</strong>: Restrict team members to read/connect access without allowing them to modify servers or credentials.</span>
+                                </li>
+                                <li class="flex items-start space-x-3 text-sm">
+                                    <svg class="w-5 h-5 text-teal-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.956 11.956 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                                    <span><strong>Sanctum API Tokens</strong>: Generate revocable API keys to integrate Sshelf with your external CLI tools or CI/CD pipelines.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-900 rounded-3xl p-6 border border-gray-800 shadow-inner">
+                            <pre class="text-xs font-mono text-teal-400 overflow-x-auto">
+<span class="text-gray-500"># Use your Sshelf token from the CLI</span>
+curl -X POST https://sshelf.app/api/v1/servers/1/execute \
+  -H "Authorization: Bearer 1|abcdef..." \
+  -H "Content-Type: application/json" \
+  -d '{"command": "tail -n 50 /var/log/syslog"}'
+                            </pre>
+                        </div>
+                    </section>
                 </div>
 
                 <!-- Call to Action -->
