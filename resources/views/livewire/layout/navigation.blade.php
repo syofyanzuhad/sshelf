@@ -40,6 +40,9 @@ new class extends Component
                     <x-nav-link :href="route('commands')" :active="request()->routeIs('commands')" wire:navigate>
                         {{ __('Commands') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('keys')" :active="request()->routeIs('keys')" wire:navigate>
+                        {{ __('Keys') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('servers.logs')" :active="request()->routeIs('servers.logs')" wire:navigate>
                         {{ __('Logs') }}
                     </x-nav-link>
@@ -96,6 +99,9 @@ new class extends Component
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('commands')" :active="request()->routeIs('commands')" wire:navigate>
                 {{ __('Commands') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('keys')" :active="request()->routeIs('keys')" wire:navigate>
+                {{ __('Keys') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('servers.logs')" :active="request()->routeIs('servers.logs')" wire:navigate>
                 {{ __('Logs') }}
