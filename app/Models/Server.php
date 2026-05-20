@@ -44,4 +44,14 @@ class Server extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    public function quickCommands(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(QuickCommand::class);
+    }
+
+    public function connectionLogs(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ConnectionLog::class);
+    }
 }

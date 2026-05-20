@@ -12,6 +12,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::get('servers/{server}/terminal', ServerTerminal::class)->name('servers.terminal');
     Route::get('logs', ConnectionLogs::class)->name('servers.logs');
+    Route::get('commands', \App\Livewire\Settings\QuickCommands::class)->name('commands');
 });
 
 Route::view('profile', 'profile')

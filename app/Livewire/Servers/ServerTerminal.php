@@ -56,6 +56,12 @@ class ServerTerminal extends Component
         Cache::put($inputKey, $data, now()->addMinutes(5));
     }
 
+    public function runCommand(string $command)
+    {
+        // Append a newline to the command so it executes immediately
+        $this->sendInput($command . "\n");
+    }
+
     public function disconnect()
     {
         Cache::put("server.{$this->server->id}.status", 'closed');

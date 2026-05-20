@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Tag::class);
     }
+
+    public function quickCommands(): HasMany
+    {
+        return $this->hasMany(QuickCommand::class);
+    }
 }
