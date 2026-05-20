@@ -1,0 +1,61 @@
+<?php
+
+namespace App\Livewire\Servers;
+
+use App\Models\Server;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Process;
+use Livewire\Component;
+
+class ServerTerminal extends Component
+{
+    public Server $server;
+
+    public function mount(Server $server)
+    {
+        $this->authorize('view', $server);
+        $this->server = $server;
+
+        // Signal open status and heartbeat
+        $this->heartbeat();
+
+        // Tell existing worker to refresh the screen if it's already running
+        Cache::put("server.{$this->server->id}.refresh", true, now()->addMinutes(1));
+
+        // Attempt to start the background process using CLI PHP
+        $php = '/Users/macbookpro/Library/Application Support/Herd/bin/php';
+        $artisan = base_path('artisan');
+        $command = "\"{$php}\" \"{$artisan}\" app:ssh-terminal {$this->server->id} > /dev/null 2>&1 &";
+        exec($command);
+    }
+
+    public function heartbeat()
+    {
+        Cache::put("server.{$this->server->id}.status", 'open', now()->addHour());
+        Cache::put("server.{$this->server->id}.last_heartbeat", now()->timestamp, now()->addHour());
+    }
+
+    protected function isProcessRunning($pid)
+    {
+        return (bool) shell_exec("ps -p {$pid} | grep {$pid}");
+    }
+
+    public function sendInput(string $data)
+    {
+        $inputKey = "server.{$this->server->id}.input";
+        Cache::put($inputKey, $data, now()->addMinutes(5));
+    }
+
+    public function disconnect()
+    {
+        Cache::put("server.{$this->server->id}.status", 'closed');
+
+        return redirect()->route('dashboard');
+    }
+
+    public function render()
+    {
+        return view('livewire.servers.server-terminal')
+            ->layout('layouts.app');
+    }
+}
