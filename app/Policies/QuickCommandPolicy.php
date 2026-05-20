@@ -20,7 +20,7 @@ class QuickCommandPolicy
      */
     public function view(User $user, QuickCommand $quickCommand): bool
     {
-        return $user->id === $quickCommand->user_id;
+        return $user->isAdmin() || $user->id === $quickCommand->user_id;
     }
 
     /**
@@ -28,7 +28,7 @@ class QuickCommandPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -36,7 +36,7 @@ class QuickCommandPolicy
      */
     public function update(User $user, QuickCommand $quickCommand): bool
     {
-        return $user->id === $quickCommand->user_id;
+        return $user->isAdmin();
     }
 
     /**
@@ -44,6 +44,6 @@ class QuickCommandPolicy
      */
     public function delete(User $user, QuickCommand $quickCommand): bool
     {
-        return $user->id === $quickCommand->user_id;
+        return $user->isAdmin();
     }
 }

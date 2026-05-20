@@ -75,12 +75,14 @@
                     </x-slot>
                 </x-dropdown>
 
+                @can('create', App\Models\Server::class)
                 <x-secondary-button class="flex-1 sm:flex-none justify-center" x-on:click="$dispatch('open-modal', 'server-import-modal')">
                     Import
                 </x-secondary-button>
                 <x-primary-button class="flex-1 sm:flex-none justify-center" x-data="" x-on:click="Livewire.dispatch('create-server')">
                     Add Server
                 </x-primary-button>
+                @endcan
             </div>
         </div>
 
@@ -113,9 +115,15 @@
                                 {{ $server->username }}@ {{ $server->host }}:{{ $server->port }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                                @can('create', App\Models\Server::class)
                                 <button wire:click="duplicate({{ $server->id }})" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">Duplicate</button>
+                                @endcan
+                                @can('update', $server)
                                 <button x-on:click="Livewire.dispatch('edit-server', { server: {{ $server->id }} })" class="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300">Edit</button>
+                                @endcan
+                                @can('delete', $server)
                                 <button wire:click="delete({{ $server->id }})" wire:confirm="Are you sure you want to delete this server?" class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300">Delete</button>
+                                @endcan
                                 <a href="{{ route('servers.terminal', $server) }}" class="inline-flex items-center px-3 py-1 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 active:bg-green-900 focus:outline-none focus:border-green-900 focus:ring ring-green-300 disabled:opacity-25 transition ease-in-out duration-150">
                                     Terminal
                                 </a>
@@ -155,10 +163,16 @@
                     
                     <div class="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-gray-700">
                         <div class="flex space-x-4">
+                            @can('update', $server)
                             <button x-on:click="Livewire.dispatch('edit-server', { server: {{ $server->id }} })" class="text-sm text-blue-600 dark:text-blue-400">Edit</button>
+                            @endcan
+                            @can('create', App\Models\Server::class)
                             <button wire:click="duplicate({{ $server->id }})" class="text-sm text-indigo-600 dark:text-indigo-400">Duplicate</button>
+                            @endcan
                         </div>
+                        @can('delete', $server)
                         <button wire:click="delete({{ $server->id }})" wire:confirm="Are you sure you want to delete this server?" class="text-sm text-red-600 dark:text-red-400">Delete</button>
+                        @endcan
                     </div>
                 </div>
             @empty

@@ -7,16 +7,19 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 use phpseclib3\Crypt\EC;
-use phpseclib3\Crypt\RSA;
 
 class SshKeys extends Component
 {
     use WithPagination;
 
     public $editing = null;
+
     public $name = '';
+
     public $public_key = '';
+
     public $private_key = '';
+
     public $passphrase = '';
 
     protected $rules = [
@@ -28,6 +31,7 @@ class SshKeys extends Component
 
     public function create()
     {
+        $this->authorize('create', SshKey::class);
         $this->reset(['editing', 'name', 'public_key', 'private_key', 'passphrase']);
         $this->dispatch('open-modal', 'ssh-key-modal');
     }
@@ -45,15 +49,16 @@ class SshKeys extends Component
 
     public function generateKeyPair()
     {
+        $this->authorize('create', SshKey::class);
         // Default to Ed25519 as it's modern and secure
         $private = EC::createKey('Ed25519');
         $public = $private->getPublicKey();
 
         $this->private_key = $private->toString('OpenSSH');
         $this->public_key = $public->toString('OpenSSH');
-        
+
         if (empty($this->name)) {
-            $this->name = 'Generated Key ' . now()->format('Y-m-d H:i');
+            $this->name = 'Generated Key '.now()->format('Y-m-d H:i');
         }
     }
 
@@ -70,8 +75,10 @@ class SshKeys extends Component
         ];
 
         if ($this->editing) {
+            $this->authorize('update', $this->editing);
             $this->editing->update($data);
         } else {
+            $this->authorize('create', SshKey::class);
             SshKey::create($data);
         }
 
@@ -87,7 +94,8 @@ class SshKeys extends Component
 
     public function render()
     {
-        $sshKeys = SshKey::where('user_id', Auth::id())
+        $sshKeys = SshKey::query()
+
             ->orderBy('name')
             ->paginate(10);
 

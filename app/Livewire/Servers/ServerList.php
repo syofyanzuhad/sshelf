@@ -3,7 +3,6 @@
 namespace App\Livewire\Servers;
 
 use App\Models\Server;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -13,6 +12,7 @@ class ServerList extends Component
     use WithPagination;
 
     public string $search = '';
+
     public string $selectedGroup = '';
 
     protected $queryString = [
@@ -45,7 +45,9 @@ class ServerList extends Component
 
     public function export()
     {
-        $servers = Server::where('user_id', Auth::id())->get();
+        $servers = Server::query()
+
+            ->get();
 
         $data = $servers->map(function ($server) {
             return [
@@ -72,7 +74,9 @@ class ServerList extends Component
 
     public function exportCsv()
     {
-        $servers = Server::where('user_id', Auth::id())->get();
+        $servers = Server::query()
+
+            ->get();
 
         $filename = 'sshelf-servers-'.now()->format('Y-m-d-His').'.csv';
 
@@ -98,19 +102,22 @@ class ServerList extends Component
 
     public function render()
     {
-        $groups = Server::where('user_id', Auth::id())
+        $groups = Server::query()
+
             ->whereNotNull('group')
             ->where('group', '!=', '')
             ->distinct()
             ->orderBy('group')
             ->pluck('group');
 
-        $hasUngrouped = Server::where('user_id', Auth::id())
+        $hasUngrouped = Server::query()
+
             ->where(function ($q) {
                 $q->whereNull('group')->orWhere('group', '');
             })->exists();
 
-        $servers = Server::where('user_id', Auth::id())
+        $servers = Server::query()
+
             ->when($this->selectedGroup, function ($query) {
                 if ($this->selectedGroup === 'ungrouped_hidden_key') {
                     $query->where(function ($q) {

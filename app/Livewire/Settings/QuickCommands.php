@@ -13,8 +13,11 @@ class QuickCommands extends Component
     use WithPagination;
 
     public $editing = null;
+
     public $name = '';
+
     public $command = '';
+
     public $server_id = null;
 
     protected $rules = [
@@ -25,6 +28,7 @@ class QuickCommands extends Component
 
     public function create()
     {
+        $this->authorize('create', QuickCommand::class);
         $this->reset(['editing', 'name', 'command', 'server_id']);
         $this->dispatch('open-modal', 'quick-command-modal');
     }
@@ -51,8 +55,10 @@ class QuickCommands extends Component
         ];
 
         if ($this->editing) {
+            $this->authorize('update', $this->editing);
             $this->editing->update($data);
         } else {
+            $this->authorize('create', QuickCommand::class);
             QuickCommand::create($data);
         }
 
@@ -68,12 +74,16 @@ class QuickCommands extends Component
 
     public function render()
     {
-        $quickCommands = QuickCommand::where('user_id', Auth::id())
+        $quickCommands = QuickCommand::query()
+
             ->with('server')
             ->orderBy('name')
             ->paginate(10);
 
-        $servers = Server::where('user_id', Auth::id())->orderBy('name')->get();
+        $servers = Server::query()
+
+            ->orderBy('name')
+            ->get();
 
         return view('livewire.settings.quick-commands', [
             'quickCommands' => $quickCommands,

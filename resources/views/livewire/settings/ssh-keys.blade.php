@@ -7,9 +7,11 @@
                         <h2 class="text-2xl font-bold">SSH Keys</h2>
                         <p class="text-sm text-gray-500">Manage your SSH keys for server authentication.</p>
                     </div>
+                    @can('create', App\Models\SshKey::class)
                     <x-primary-button wire:click="create">
                         Add SSH Key
                     </x-primary-button>
+                    @endcan
                 </div>
 
                 <div class="overflow-x-auto">
@@ -37,8 +39,12 @@
                                         </span>
                                     </td>
                                     <td class="py-3 px-4 text-right space-x-2">
+                                        @can('update', $key)
                                         <button wire:click="edit({{ $key->id }})" class="text-indigo-600 hover:text-indigo-900 dark:hover:text-indigo-400">Edit</button>
+                                        @endcan
+                                        @can('delete', $key)
                                         <button wire:click="delete({{ $key->id }})" wire:confirm="Are you sure you want to delete this SSH key? Servers using this key will no longer be able to connect." class="text-red-600 hover:text-red-900 dark:hover:text-red-400">Delete</button>
+                                        @endcan
                                     </td>
                                 </tr>
                             @empty

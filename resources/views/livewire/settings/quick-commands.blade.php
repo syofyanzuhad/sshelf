@@ -7,9 +7,11 @@
                         <h2 class="text-2xl font-bold">Quick Commands</h2>
                         <p class="text-sm text-gray-500">Save and execute frequently used snippets.</p>
                     </div>
+                    @can('create', App\Models\QuickCommand::class)
                     <x-primary-button wire:click="create">
                         Add Command
                     </x-primary-button>
+                    @endcan
                 </div>
 
                 <div class="overflow-x-auto">
@@ -43,8 +45,12 @@
                                         @endif
                                     </td>
                                     <td class="py-3 px-4 text-right space-x-2">
+                                        @can('update', $cmd)
                                         <button wire:click="edit({{ $cmd->id }})" class="text-indigo-600 hover:text-indigo-900 dark:hover:text-indigo-400">Edit</button>
+                                        @endcan
+                                        @can('delete', $cmd)
                                         <button wire:click="delete({{ $cmd->id }})" wire:confirm="Are you sure you want to delete this command?" class="text-red-600 hover:text-red-900 dark:hover:text-red-400">Delete</button>
+                                        @endcan
                                     </td>
                                 </tr>
                             @empty

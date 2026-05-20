@@ -12,8 +12,9 @@ class ConnectionLogs extends Component
 
     public function render()
     {
-        $logs = ConnectionLog::with('server')
-            ->where('user_id', auth()->id())
+        $logs = ConnectionLog::query()
+            ->with('server')
+
             ->orderBy('created_at', 'desc')
             ->paginate(20);
 

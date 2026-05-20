@@ -57,6 +57,7 @@ class ServerForm extends Component
     #[On('create-server')]
     public function create()
     {
+        $this->authorize('create', Server::class);
         $this->reset(['server', 'name', 'host', 'port', 'username', 'auth_type', 'ssh_key_id', 'password', 'private_key', 'passphrase', 'group', 'notes']);
         $this->port = 22;
         $this->auth_type = 'password';
@@ -95,15 +96,17 @@ class ServerForm extends Component
             'auth_type' => $this->auth_type,
             'ssh_key_id' => $this->ssh_key_id ?: null,
             'password' => $this->auth_type === 'password' ? $this->password : null,
-            'private_key' => ($this->auth_type === 'key' && !$this->ssh_key_id) ? $this->private_key : null,
-            'passphrase' => ($this->auth_type === 'key' && !$this->ssh_key_id) ? $this->passphrase : null,
+            'private_key' => ($this->auth_type === 'key' && ! $this->ssh_key_id) ? $this->private_key : null,
+            'passphrase' => ($this->auth_type === 'key' && ! $this->ssh_key_id) ? $this->passphrase : null,
             'group' => $this->group,
             'notes' => $this->notes,
         ];
 
         if ($this->server) {
+            $this->authorize('update', $this->server);
             $this->server->update($data);
         } else {
+            $this->authorize('create', Server::class);
             Server::create($data);
         }
 
@@ -142,13 +145,17 @@ class ServerForm extends Component
 
     public function render()
     {
-        $groups = Server::where('user_id', Auth::id())
+        $groups = Server::query()
+
             ->whereNotNull('group')
             ->distinct()
             ->orderBy('group')
             ->pluck('group');
 
-        $sshKeys = SshKey::where('user_id', Auth::id())->orderBy('name')->get();
+        $sshKeys = SshKey::query()
+
+            ->orderBy('name')
+            ->get();
 
         return view('livewire.servers.server-form', [
             'groups' => $groups,
