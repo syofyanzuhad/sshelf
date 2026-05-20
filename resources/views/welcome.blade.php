@@ -93,7 +93,7 @@
 
             <!-- Features Section -->
             <section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-gray-200 dark:border-gray-800">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Feature 1 -->
                     <div class="p-6 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-indigo-500 transition group">
                         <div class="bg-indigo-50 dark:bg-indigo-500/10 p-3 rounded-xl w-fit mb-4 group-hover:bg-indigo-600 transition">
@@ -102,7 +102,7 @@
                             </svg>
                         </div>
                         <h3 class="text-lg font-bold mb-2">Encrypted Vault</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Credentials are encrypted at rest using industry-standard AES-256-GCM. Your secrets never leave the server unencrypted.</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Credentials are encrypted at rest using industry-standard AES-256-GCM. Your secrets never leave your server unencrypted.</p>
                     </div>
 
                     <!-- Feature 2 -->
@@ -136,6 +136,28 @@
                         </div>
                         <h3 class="text-lg font-bold mb-2">Smart Folders</h3>
                         <p class="text-gray-600 dark:text-gray-400 text-sm">Organize hundreds of servers into logical groups and tags. Find what you need in seconds with powerful real-time search.</p>
+                    </div>
+
+                    <!-- Feature 5 -->
+                    <div class="p-6 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-indigo-500 transition group">
+                        <div class="bg-orange-50 dark:bg-orange-500/10 p-3 rounded-xl w-fit mb-4 group-hover:bg-orange-600 transition">
+                            <svg class="w-6 h-6 text-orange-600 dark:text-orange-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2">Self-Host Anywhere</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">You own your data. Deploy Sshelf on your own infrastructure, home lab, or private cloud for ultimate privacy and control.</p>
+                    </div>
+
+                    <!-- Feature 6 -->
+                    <div class="p-6 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-indigo-500 transition group">
+                        <div class="bg-cyan-50 dark:bg-cyan-500/10 p-3 rounded-xl w-fit mb-4 group-hover:bg-cyan-600 transition">
+                            <svg class="w-6 h-6 text-cyan-600 dark:text-cyan-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2">Docker & One-Click</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Deploy in seconds using our Docker image, or use one-click templates for Railway, Coolify, and more.</p>
                     </div>
                 </div>
             </section>

@@ -107,6 +107,22 @@
                                 <td class="p-6 text-green-500">Yes</td>
                                 <td class="p-6 text-gray-500">External</td>
                             </tr>
+                            <tr>
+                                <td class="p-6 font-medium">Open Source</td>
+                                <td class="p-6 bg-indigo-50/30 dark:bg-indigo-900/10">
+                                    <span class="text-green-500 font-bold">Yes</span> (MIT)
+                                </td>
+                                <td class="p-6 text-red-500">Proprietary</td>
+                                <td class="p-6 text-green-500">Yes</td>
+                            </tr>
+                            <tr>
+                                <td class="p-6 font-medium">One-Click Deploy</td>
+                                <td class="p-6 bg-indigo-50/30 dark:bg-indigo-900/10">
+                                    <span class="text-green-500 font-bold">Yes</span> (Railway/Docker)
+                                </td>
+                                <td class="p-6 text-gray-500">N/A</td>
+                                <td class="p-6 text-gray-500">N/A</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
