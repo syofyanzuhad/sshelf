@@ -23,8 +23,9 @@ new class extends Component
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}" wire:navigate>
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    <a href="{{ route('dashboard') }}" wire:navigate class="flex items-center space-x-2 group">
+                        <x-application-logo class="w-8 h-8 group-hover:scale-105 transition-transform" />
+                        <span class="text-xl font-bold text-gray-800 dark:text-gray-200 tracking-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{{ config('app.name', 'Sshelf') }}</span>
                     </a>
                 </div>
 
@@ -96,7 +97,10 @@ new class extends Component
             <x-responsive-nav-link :href="route('servers.logs')" :active="request()->routeIs('servers.logs')" wire:navigate>
                 {{ __('Logs') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="https://ko-fi.com/syofyanzuhad" target="_blank" class="text-pink-600 dark:text-pink-400">
+            <x-responsive-nav-link href="https://ko-fi.com/syofyanzuhad" target="_blank" class="text-pink-600 dark:text-pink-400 flex items-center">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
                 Support the Project
             </x-responsive-nav-link>
         </div>
