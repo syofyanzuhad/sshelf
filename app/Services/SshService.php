@@ -48,4 +48,36 @@ class SshService
 
         return $key;
     }
+
+    public function executeCommand(Server $server, string $command): array
+    {
+        try {
+            $ssh = $this->createSshInstance($server->host, (int) $server->port);
+
+            $auth = $server->auth_type === 'password'
+                ? $ssh->login($server->username, $server->password)
+                : $ssh->login($server->username, $this->loadKey($server));
+
+            if (! $auth) {
+                return [
+                    'success' => false,
+                    'message' => 'Authentication failed',
+                ];
+            }
+
+            $output = $ssh->exec($command);
+            $exitCode = $ssh->getExitStatus();
+
+            return [
+                'success' => true,
+                'output' => $output,
+                'exit_code' => $exitCode,
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
+        }
+    }
 }
