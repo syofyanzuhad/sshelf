@@ -156,6 +156,7 @@
             <footer class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center text-sm text-gray-500 border-t border-gray-200 dark:border-gray-800">
                 <div class="flex justify-center space-x-6 mb-6">
                     <a href="/" class="hover:text-indigo-500 transition">Home</a>
+                    <a href="{{ route('features') }}" class="hover:text-indigo-500 transition">Features</a>
                     <a href="https://github.com/syofyanzuhad/sshelf" class="hover:text-indigo-500 transition">GitHub</a>
                     <a href="https://ko-fi.com/syofyanzuhad" target="_blank" class="hover:text-pink-500 transition font-medium flex items-center">
                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">

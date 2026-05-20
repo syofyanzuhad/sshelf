@@ -5,6 +5,7 @@ use App\Livewire\Servers\ServerTerminal;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
+Route::view('features', 'features')->name('features');
 Route::view('compare', 'compare')->name('compare');
 
 Route::middleware(['auth', 'verified'])->group(function () {
