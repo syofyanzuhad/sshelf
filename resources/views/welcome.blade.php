@@ -34,7 +34,7 @@
                 <div class="hidden lg:flex items-center space-x-8 ml-10">
                     <a href="{{ route('features') }}" class="text-sm font-semibold text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition">Features</a>
                     <a href="{{ route('compare') }}" class="text-sm font-semibold text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition">Compare</a>
-                    <a href="https://github.com/syofyanzuhad/sshelf" target="_blank" class="text-sm font-semibold text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition">GitHub</a>
+                    <x-github-link class="text-sm font-semibold text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition" />
                 </div>
 
                 <div class="flex-1 flex justify-end items-center space-x-4">
