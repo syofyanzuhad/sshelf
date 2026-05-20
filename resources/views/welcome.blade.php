@@ -164,10 +164,15 @@
 
             <!-- Footer -->
             <footer class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center text-sm text-gray-500 border-t border-gray-200 dark:border-gray-800">
-                <div class="flex justify-center space-x-6 mb-4">
+                <div class="flex justify-center space-x-6 mb-6">
                     <a href="{{ route('compare') }}" class="hover:text-indigo-500 transition">Compare Sshelf</a>
                     <a href="https://github.com/syofyanzuhad/sshelf" class="hover:text-indigo-500 transition">GitHub</a>
+                    <a href="https://ko-fi.com/syofyanzuhad" target="_blank" class="hover:text-pink-500 transition font-medium flex items-center">
+                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+                        Buy me a coffee
+                    </a>
                 </div>
+                <p class="mb-2">Created with ❤️ by <a href="https://syofyanzuhad.dev" target="_blank" class="font-bold text-gray-900 dark:text-gray-100 hover:text-indigo-500 transition">Syofyan Zuhad</a></p>
                 <p>&copy; {{ date('Y') }} Sshelf. Securely self-hosted for maximum privacy.</p>
             </footer>
         </div>
