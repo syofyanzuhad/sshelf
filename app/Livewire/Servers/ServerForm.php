@@ -3,6 +3,7 @@
 namespace App\Livewire\Servers;
 
 use App\Models\Server;
+use App\Models\SshKey;
 use App\Services\SshService;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -24,6 +25,8 @@ class ServerForm extends Component
 
     public string $auth_type = 'password';
 
+    public ?int $ssh_key_id = null;
+
     public string $password = '';
 
     public string $private_key = '';
@@ -42,8 +45,9 @@ class ServerForm extends Component
             'port' => 'required|integer|min:1|max:65535',
             'username' => 'required|string|max:255',
             'auth_type' => 'required|in:password,key',
+            'ssh_key_id' => 'nullable|exists:ssh_keys,id',
             'password' => 'required_if:auth_type,password',
-            'private_key' => 'required_if:auth_type,key',
+            'private_key' => 'required_if:auth_type,key|exclude_if:ssh_key_id,!=,null',
             'passphrase' => 'nullable|string',
             'group' => 'nullable|string|max:255',
             'notes' => 'nullable|string',
@@ -53,7 +57,7 @@ class ServerForm extends Component
     #[On('create-server')]
     public function create()
     {
-        $this->reset(['server', 'name', 'host', 'port', 'username', 'auth_type', 'password', 'private_key', 'passphrase', 'group', 'notes']);
+        $this->reset(['server', 'name', 'host', 'port', 'username', 'auth_type', 'ssh_key_id', 'password', 'private_key', 'passphrase', 'group', 'notes']);
         $this->port = 22;
         $this->auth_type = 'password';
         $this->dispatch('open-modal', 'server-form-modal');
@@ -69,6 +73,7 @@ class ServerForm extends Component
         $this->port = $server->port;
         $this->username = $server->username;
         $this->auth_type = $server->auth_type;
+        $this->ssh_key_id = $server->ssh_key_id;
         $this->password = $server->password ?? '';
         $this->private_key = $server->private_key ?? '';
         $this->passphrase = $server->passphrase ?? '';
@@ -88,9 +93,10 @@ class ServerForm extends Component
             'port' => $this->port,
             'username' => $this->username,
             'auth_type' => $this->auth_type,
+            'ssh_key_id' => $this->ssh_key_id ?: null,
             'password' => $this->auth_type === 'password' ? $this->password : null,
-            'private_key' => $this->auth_type === 'key' ? $this->private_key : null,
-            'passphrase' => $this->auth_type === 'key' ? $this->passphrase : null,
+            'private_key' => ($this->auth_type === 'key' && !$this->ssh_key_id) ? $this->private_key : null,
+            'passphrase' => ($this->auth_type === 'key' && !$this->ssh_key_id) ? $this->passphrase : null,
             'group' => $this->group,
             'notes' => $this->notes,
         ];
@@ -114,10 +120,16 @@ class ServerForm extends Component
             'port' => $this->port,
             'username' => $this->username,
             'auth_type' => $this->auth_type,
+            'ssh_key_id' => $this->ssh_key_id,
             'password' => $this->password,
             'private_key' => $this->private_key,
             'passphrase' => $this->passphrase,
         ]);
+
+        // If an SSH key is linked, load it to ensure relationships work in the temp model
+        if ($this->ssh_key_id) {
+            $tempServer->setRelation('sshKey', SshKey::find($this->ssh_key_id));
+        }
 
         $result = $sshService->testConnection($tempServer);
 
@@ -136,8 +148,11 @@ class ServerForm extends Component
             ->orderBy('group')
             ->pluck('group');
 
+        $sshKeys = SshKey::where('user_id', Auth::id())->orderBy('name')->get();
+
         return view('livewire.servers.server-form', [
             'groups' => $groups,
+            'sshKeys' => $sshKeys,
         ]);
     }
 }

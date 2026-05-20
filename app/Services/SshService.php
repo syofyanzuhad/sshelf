@@ -37,10 +37,13 @@ class SshService
 
     public function loadKey(Server $server): PrivateKey
     {
-        $key = PublicKeyLoader::load($server->private_key);
+        $privateKeyString = $server->sshKey ? $server->sshKey->private_key : $server->private_key;
+        $passphrase = $server->sshKey ? $server->sshKey->passphrase : $server->passphrase;
 
-        if ($server->passphrase) {
-            $key = $key->withPassword($server->passphrase);
+        $key = PublicKeyLoader::load($privateKeyString);
+
+        if ($passphrase) {
+            $key = $key->withPassword($passphrase);
         }
 
         return $key;
