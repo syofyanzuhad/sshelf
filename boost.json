@@ -15,6 +15,7 @@
         "livewire-development",
         "volt-development",
         "pest-testing",
+        "echo-development",
         "tailwindcss-development"
     ]
 }
