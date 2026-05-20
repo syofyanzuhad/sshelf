@@ -1,18 +1,17 @@
 <?php
 
+use App\Livewire\Servers\ConnectionLogs;
 use App\Livewire\Servers\ServerTerminal;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 Route::view('compare', 'compare')->name('compare');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
-Route::get('servers/{server}/terminal', ServerTerminal::class)
-    ->middleware(['auth', 'verified'])
-    ->name('servers.terminal');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::get('servers/{server}/terminal', ServerTerminal::class)->name('servers.terminal');
+    Route::get('logs', ConnectionLogs::class)->name('servers.logs');
+});
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
