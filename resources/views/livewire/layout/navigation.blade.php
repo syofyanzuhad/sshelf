@@ -37,22 +37,9 @@ new class extends Component
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('features')" :active="request()->routeIs('features')" wire:navigate>
-                        {{ __('Features') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('compare')" :active="request()->routeIs('compare')" wire:navigate>
-                        {{ __('Compare') }}
-                    </x-nav-link>
                     <x-nav-link :href="route('servers.logs')" :active="request()->routeIs('servers.logs')" wire:navigate>
                         {{ __('Logs') }}
                     </x-nav-link>
-                    <x-github-link class="px-1 pt-1 text-sm font-medium leading-5 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition duration-150 ease-in-out" />
-                    <a href="https://ko-fi.com/syofyanzuhad" target="_blank" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-pink-600 dark:text-pink-400 hover:text-pink-500 transition duration-150 ease-in-out">
-                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
-                        Support
-                    </a>
                 </div>
             </div>
 
@@ -104,21 +91,8 @@ new class extends Component
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('features')" :active="request()->routeIs('features')" wire:navigate>
-                {{ __('Features') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('compare')" :active="request()->routeIs('compare')" wire:navigate>
-                {{ __('Compare') }}
-            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('servers.logs')" :active="request()->routeIs('servers.logs')" wire:navigate>
                 {{ __('Logs') }}
-            </x-responsive-nav-link>
-            <x-github-link class="block w-full ps-3 pe-4 py-2 border-l-4 border-transparent text-start text-base font-medium text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-600 focus:outline-none focus:text-gray-800 dark:focus:text-gray-200 focus:bg-gray-50 dark:focus:bg-gray-700 focus:border-gray-300 dark:focus:border-gray-600 transition duration-150 ease-in-out" />
-            <x-responsive-nav-link href="https://ko-fi.com/syofyanzuhad" target="_blank" class="text-pink-600 dark:text-pink-400 flex items-center">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-                Support the Project
             </x-responsive-nav-link>
         </div>
 
