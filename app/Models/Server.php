@@ -16,6 +16,7 @@ class Server extends Model
 
     protected $fillable = [
         'user_id',
+        'ssh_key_id',
         'name',
         'host',
         'port',
@@ -38,6 +39,11 @@ class Server extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function sshKey(): BelongsTo
+    {
+        return $this->belongsTo(SshKey::class);
     }
 
     public function tags(): BelongsToMany

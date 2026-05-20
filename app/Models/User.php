@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(QuickCommand::class);
     }
+
+    public function sshKeys(): HasMany
+    {
+        return $this->hasMany(SshKey::class);
+    }
 }
