@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\UserRole;
 use App\Livewire\Servers\ServerForm;
 use App\Livewire\Servers\ServerList;
 use App\Models\Server;
@@ -7,7 +8,7 @@ use App\Models\User;
 use Livewire\Livewire;
 
 beforeEach(function () {
-    $this->user = User::factory()->create();
+    $this->user = User::factory()->create(['role' => UserRole::Admin]);
     $this->actingAs($this->user);
 });
 
@@ -71,6 +72,9 @@ test('user can duplicate a server', function () {
 });
 
 test('user cannot edit another users server', function () {
+    $viewer = User::factory()->create(['role' => UserRole::Viewer]);
+    $this->actingAs($viewer);
+
     $otherUser = User::factory()->create();
     $server = Server::factory()->create(['user_id' => $otherUser->id]);
 

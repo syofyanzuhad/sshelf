@@ -26,6 +26,12 @@ class ServerList extends Component
         $this->resetPage();
     }
 
+    #[On('echo-private:servers.health,ServerHealthUpdated')]
+    public function healthUpdated()
+    {
+        // Re-renders the component to show updated health stats
+    }
+
     public function delete(Server $server)
     {
         $this->authorize('delete', $server);

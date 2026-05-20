@@ -93,6 +93,8 @@
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Name</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Host</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Health</th>
                         <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
                     </tr>
                 </thead>
@@ -101,7 +103,7 @@
                     @forelse($servers as $server)
                         @if($server->group !== $lastGroup)
                             <tr class="bg-gray-50 dark:bg-gray-700/50">
-                                <td colspan="3" class="px-6 py-2 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                <td colspan="5" class="px-6 py-2 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                                     {{ $server->group ?? 'Ungrouped' }}
                                 </td>
                             </tr>
@@ -113,6 +115,24 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                 {{ $server->username }}@ {{ $server->host }}:{{ $server->port }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                @if($server->status === 'online')
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-400">Online</span>
+                                @elseif($server->status === 'offline')
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-400">Offline</span>
+                                @else
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">Unknown</span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-500 dark:text-gray-400">
+                                @if($server->status === 'online')
+                                    <div>CPU: {{ $server->cpu_usage !== null ? number_format($server->cpu_usage, 1) . '%' : 'N/A' }}</div>
+                                    <div>MEM: {{ $server->memory_usage !== null ? number_format($server->memory_usage, 1) . '%' : 'N/A' }}</div>
+                                    <div>DSK: {{ $server->disk_usage !== null ? $server->disk_usage . '%' : 'N/A' }}</div>
+                                @else
+                                    <span class="italic text-gray-400">Stats unavailable</span>
+                                @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
                                 @can('create', App\Models\Server::class)
@@ -131,7 +151,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                            <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
                                 No servers found.
                             </td>
                         </tr>
@@ -153,13 +173,39 @@
                 <div class="bg-white dark:bg-gray-800 shadow-sm rounded-lg p-4 space-y-3">
                     <div class="flex justify-between items-start">
                         <div>
-                            <h4 class="text-base font-semibold text-gray-900 dark:text-gray-100">{{ $server->name }}</h4>
+                            <div class="flex items-center space-x-2">
+                                <h4 class="text-base font-semibold text-gray-900 dark:text-gray-100">{{ $server->name }}</h4>
+                                @if($server->status === 'online')
+                                    <span class="w-2 h-2 rounded-full bg-green-500" title="Online"></span>
+                                @elseif($server->status === 'offline')
+                                    <span class="w-2 h-2 rounded-full bg-red-500" title="Offline"></span>
+                                @else
+                                    <span class="w-2 h-2 rounded-full bg-gray-400" title="Unknown"></span>
+                                @endif
+                            </div>
                             <p class="text-sm text-gray-500 dark:text-gray-400">{{ $server->username }}@ {{ $server->host }}</p>
                         </div>
                         <a href="{{ route('servers.terminal', $server) }}" class="inline-flex items-center px-3 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 active:bg-green-900">
                             Connect
                         </a>
                     </div>
+                    
+                    @if($server->status === 'online')
+                    <div class="grid grid-cols-3 gap-2 text-xs text-gray-500 dark:text-gray-400 mt-2">
+                        <div class="bg-gray-50 dark:bg-gray-700/50 p-2 rounded text-center">
+                            <span class="block font-semibold">CPU</span>
+                            {{ $server->cpu_usage !== null ? number_format($server->cpu_usage, 1) . '%' : 'N/A' }}
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-700/50 p-2 rounded text-center">
+                            <span class="block font-semibold">MEM</span>
+                            {{ $server->memory_usage !== null ? number_format($server->memory_usage, 1) . '%' : 'N/A' }}
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-700/50 p-2 rounded text-center">
+                            <span class="block font-semibold">DISK</span>
+                            {{ $server->disk_usage !== null ? $server->disk_usage . '%' : 'N/A' }}
+                        </div>
+                    </div>
+                    @endif
                     
                     <div class="flex items-center justify-between pt-3 border-t border-gray-100 dark:border-gray-700">
                         <div class="flex space-x-4">

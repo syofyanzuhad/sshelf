@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Server extends Model
 {
@@ -27,6 +28,11 @@ class Server extends Model
         'passphrase',
         'group',
         'notes',
+        'status',
+        'last_checked_at',
+        'cpu_usage',
+        'memory_usage',
+        'disk_usage',
     ];
 
     protected $casts = [
@@ -34,6 +40,10 @@ class Server extends Model
         'private_key' => EncryptedNullable::class,
         'passphrase' => EncryptedNullable::class,
         'port' => 'integer',
+        'last_checked_at' => 'datetime',
+        'cpu_usage' => 'float',
+        'memory_usage' => 'float',
+        'disk_usage' => 'float',
     ];
 
     public function user(): BelongsTo
@@ -51,12 +61,12 @@ class Server extends Model
         return $this->belongsToMany(Tag::class);
     }
 
-    public function quickCommands(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function quickCommands(): HasMany
     {
         return $this->hasMany(QuickCommand::class);
     }
 
-    public function connectionLogs(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function connectionLogs(): HasMany
     {
         return $this->hasMany(ConnectionLog::class);
     }
