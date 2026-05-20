@@ -12,7 +12,7 @@
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <x-input-label for="host" value="Host (IP or Domain)" />
                         <x-text-input id="host" type="text" class="mt-1 block w-full" wire:model="host" placeholder="192.168.1.10" />
@@ -77,8 +77,8 @@
                 </div>
             </div>
 
-            <div class="mt-6 flex justify-between items-center">
-                <div>
+            <div class="mt-6 flex flex-col-reverse sm:flex-row justify-between items-center gap-4">
+                <div class="w-full sm:w-auto text-center sm:text-left">
                     @if (session()->has('message'))
                         <span class="text-green-600 dark:text-green-400 text-sm">{{ session('message') }}</span>
                     @endif
@@ -87,18 +87,20 @@
                     @endif
                 </div>
 
-                <div class="flex items-center space-x-3">
-                    <x-secondary-button type="button" wire:click="testConnection" wire:loading.attr="disabled">
+                <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+                    <x-secondary-button type="button" wire:click="testConnection" wire:loading.attr="disabled" class="w-full sm:w-auto justify-center">
                         Test Connection
                     </x-secondary-button>
 
-                    <x-secondary-button x-on:click="$dispatch('close-modal', 'server-form-modal')">
-                        Cancel
-                    </x-secondary-button>
+                    <div class="flex items-center space-x-3 w-full sm:w-auto">
+                        <x-secondary-button x-on:click="$dispatch('close-modal', 'server-form-modal')" class="flex-1 sm:flex-none justify-center">
+                            Cancel
+                        </x-secondary-button>
 
-                    <x-primary-button>
-                        {{ $server ? 'Update' : 'Save' }}
-                    </x-primary-button>
+                        <x-primary-button class="flex-1 sm:flex-none justify-center">
+                            {{ $server ? 'Update' : 'Save' }}
+                        </x-primary-button>
+                    </div>
                 </div>
             </div>
         </form>

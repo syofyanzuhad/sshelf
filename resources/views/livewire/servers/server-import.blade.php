@@ -35,11 +35,11 @@
                 
                 <x-input-error :messages="$errors->get('file')" class="mt-2" />
                 
-                <div class="mt-6 flex justify-end space-x-3">
-                    <x-secondary-button x-on:click="$dispatch('close-modal', 'server-import-modal')">
+                <div class="mt-6 flex flex-col-reverse sm:flex-row justify-end gap-3">
+                    <x-secondary-button x-on:click="$dispatch('close-modal', 'server-import-modal')" class="w-full sm:w-auto justify-center">
                         Cancel
                     </x-secondary-button>
-                    <x-primary-button wire:click="importFile" wire:loading.attr="disabled">
+                    <x-primary-button wire:click="importFile" wire:loading.attr="disabled" class="w-full sm:w-auto justify-center">
                         <span wire:loading.remove>Import File</span>
                         <span wire:loading>Importing...</span>
                     </x-primary-button>
@@ -59,11 +59,11 @@
                 
                 <x-input-error :messages="$errors->get('sshConfig')" class="mt-2" />
 
-                <div class="mt-6 flex justify-end space-x-3">
-                    <x-secondary-button x-on:click="$dispatch('close-modal', 'server-import-modal')">
+                <div class="mt-6 flex flex-col-reverse sm:flex-row justify-end gap-3">
+                    <x-secondary-button x-on:click="$dispatch('close-modal', 'server-import-modal')" class="w-full sm:w-auto justify-center">
                         Cancel
                     </x-secondary-button>
-                    <x-primary-button wire:click="importSshConfig" wire:loading.attr="disabled">
+                    <x-primary-button wire:click="importSshConfig" wire:loading.attr="disabled" class="w-full sm:w-auto justify-center">
                         <span wire:loading.remove>Import Config</span>
                         <span wire:loading>Importing...</span>
                     </x-primary-button>
