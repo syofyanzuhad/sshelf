@@ -1,4 +1,4 @@
-# Sshelf (LaraSHH)
+# Sshelf
 
 Sshelf is a secure SSH credential manager and real-time web terminal built with Laravel 13, Livewire 3, and xterm.js. It allows you to manage multiple server credentials securely and access them directly from your browser.
 
