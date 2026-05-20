@@ -9,6 +9,10 @@ Sshelf (Secure Shelf) is a secure SSH credential manager and real-time web termi
 
 - **Encrypted Vault**: Server credentials (passwords/private keys) are encrypted at rest using industry-standard AES-256-GCM.
 - **Web Terminal**: High-performance interactive terminal powered by xterm.js and Laravel Reverb.
+- **SSH Key Manager**: Generate and manage Ed25519 SSH keys directly within the application.
+- **Role-Based Access Control (RBAC)**: Assign Admin or Viewer roles to restrict who can manage infrastructure vs who can only access it.
+- **Real-Time Health Monitoring**: Periodically fetches CPU, Memory, and Disk usage via SSH and broadcasts live updates to your dashboard.
+- **API & CLI Bridge**: Programmatic access with token-based (Sanctum) authentication, allowing external tools to interact with your vault and execute commands.
 - **Audit Trails**: Detailed UI for viewing connection history, including IP addresses, timestamps, and session durations.
 - **Organization**: Group servers with smart tags and search for easy management.
 - **Mobile Friendly**: Fully responsive design with card views optimized for small screens.
