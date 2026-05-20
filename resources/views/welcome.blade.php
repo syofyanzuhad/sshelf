@@ -33,6 +33,10 @@
                 </div>
 
                 <div class="flex items-center space-x-4">
+                    <a href="https://ko-fi.com/syofyanzuhad" target="_blank" class="hidden sm:flex items-center space-x-1 text-sm font-semibold text-pink-600 dark:text-pink-400 hover:text-pink-500 transition">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+                        <span>Support</span>
+                    </a>
                     @auth
                         <a href="{{ url('/dashboard') }}" class="text-sm font-semibold hover:text-indigo-500 transition">Dashboard</a>
                     @else

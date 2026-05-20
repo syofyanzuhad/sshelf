@@ -33,8 +33,16 @@ Sshelf is designed to be easily self-hosted. The simplest way is using Docker Co
    ```
 Sshelf will be available at `http://localhost:8080`.
 
-### Configuration
+## Sponsorship & Support
 
+Sshelf is open-source and free to use. If you find it useful and want to support its continued development, please consider sponsoring the project:
+
+[![Support me on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/syofyanzuhad)
+
+Your support helps cover hosting costs and keeps the project alive!
+
+### Configuration
+...
 - **Encryption**: Make sure to keep your `APP_KEY` safe. If lost, you will lose access to all stored server passwords.
 - **Background Worker**: Sshelf uses a background PHP process for the web terminal. If your terminal isn't connecting, ensure `PHP_BINARY_PATH` in your `.env` points to your CLI PHP binary (especially on macOS with Herd).
 

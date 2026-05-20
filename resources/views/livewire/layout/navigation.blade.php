@@ -36,6 +36,9 @@ new class extends Component
                     <x-nav-link :href="route('servers.logs')" :active="request()->routeIs('servers.logs')" wire:navigate>
                         {{ __('Logs') }}
                     </x-nav-link>
+                    <a href="https://ko-fi.com/syofyanzuhad" target="_blank" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-pink-600 dark:text-pink-400 hover:text-pink-500 transition duration-150 ease-in-out">
+                        Support
+                    </a>
                 </div>
             </div>
 
@@ -89,6 +92,9 @@ new class extends Component
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('servers.logs')" :active="request()->routeIs('servers.logs')" wire:navigate>
                 {{ __('Logs') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="https://ko-fi.com/syofyanzuhad" target="_blank" class="text-pink-600 dark:text-pink-400">
+                Support the Project
             </x-responsive-nav-link>
         </div>
 
