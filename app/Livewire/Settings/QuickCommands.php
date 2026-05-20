@@ -78,6 +78,6 @@ class QuickCommands extends Component
         return view('livewire.settings.quick-commands', [
             'quickCommands' => $quickCommands,
             'servers' => $servers,
-        ]);
+        ])->layout('layouts.app');
     }
 }
