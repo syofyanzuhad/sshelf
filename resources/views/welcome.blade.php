@@ -12,6 +12,8 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        
+        <x-theme-script />
     </head>
     <body class="antialiased font-sans bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
         <div class="relative min-h-screen">
@@ -38,6 +40,7 @@
                 </div>
 
                 <div class="flex-1 flex justify-end items-center space-x-4">
+                    <x-theme-toggle />
                     <a href="https://ko-fi.com/syofyanzuhad" target="_blank" class="hidden sm:flex items-center space-x-1 text-sm font-semibold text-pink-600 dark:text-pink-400 hover:text-pink-500 transition">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -203,6 +206,25 @@
                         <h3 class="text-lg font-bold mb-2">CLI Bridge API</h3>
                         <p class="text-gray-600 dark:text-gray-400 text-sm">Generate Sanctum API tokens and securely retrieve credentials or execute programmatic commands from your local CLI.</p>
                     </div>
+                </div>
+            </section>
+
+            <!-- Sponsors Section -->
+            <section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-200 dark:border-gray-800">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-extrabold mb-4">Supported by</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Sshelf is an open-source project. Huge thanks to our sponsors!</p>
+                </div>
+                <div class="flex flex-wrap justify-center items-center gap-12 opacity-70">
+                    <!-- Example Sponsor Logos -->
+                    <div class="h-12 w-32 bg-gray-300 dark:bg-gray-800 rounded animate-pulse"></div>
+                    <div class="h-12 w-32 bg-gray-300 dark:bg-gray-800 rounded animate-pulse"></div>
+                    <div class="h-12 w-32 bg-gray-300 dark:bg-gray-800 rounded animate-pulse"></div>
+                </div>
+                <div class="mt-12 text-center">
+                    <a href="https://github.com/sponsors/syofyanzuhad" target="_blank" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 transition">
+                        Become a Sponsor
+                    </a>
                 </div>
             </section>
 

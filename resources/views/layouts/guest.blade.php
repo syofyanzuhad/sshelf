@@ -13,8 +13,15 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        
+        <x-theme-script />
     </head>
     <body class="font-sans text-gray-900 antialiased bg-gray-50 dark:bg-gray-950 min-h-screen selection:bg-indigo-500 selection:text-white flex items-center justify-center relative overflow-hidden">
+        <!-- Theme Toggle -->
+        <div class="absolute top-4 right-4 z-50">
+            <x-theme-toggle />
+        </div>
+
         <!-- Background Gradients -->
         <div class="fixed inset-0 z-0 pointer-events-none">
             <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500/20 dark:bg-indigo-600/20 rounded-full blur-[120px] mix-blend-multiply dark:mix-blend-screen opacity-70"></div>
