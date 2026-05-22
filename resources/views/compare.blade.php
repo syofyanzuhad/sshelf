@@ -2,7 +2,7 @@
     title="Compare" 
     description="Compare Sshelf with traditional desktop clients and raw SSH configs. See why developers are switching to a secure, web-based vault for infrastructure management."
 >
-    <main class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24">
+    <div class="px-4 sm:px-6 lg:px-8 pt-16 pb-24">
         <div class="text-center mb-16">
             <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">Choose a <span class="text-indigo-500">Better Way</span> to SSH</h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
@@ -155,5 +155,5 @@
                 Create Your Free Account
             </a>
         </div>
-    </main>
+    </div>
 </x-marketing-layout>

@@ -2,7 +2,7 @@
     title="Features" 
     description="Explore the technical depth of Sshelf. From AES-256 encryption to real-time Reverb-powered terminals, learn how we keep your servers secure and accessible."
 >
-    <main class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24">
+    <div class="px-4 sm:px-6 lg:px-8 pt-16 pb-24">
         <div class="text-center mb-20">
             <h1 class="text-5xl font-extrabold tracking-tight mb-6">Built for <span class="text-indigo-500">Security & Speed</span></h1>
             <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
@@ -228,5 +228,5 @@ curl -X POST https://sshelf.app/api/v1/servers/1/execute \
                 </a>
             </div>
         </div>
-    </main>
+    </div>
 </x-marketing-layout>

@@ -1,4 +1,4 @@
-            <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24 sm:pt-32 sm:pb-40 text-center">
+            <div class="px-4 sm:px-6 lg:px-8 pt-16 pb-24 sm:pt-32 sm:pb-40 text-center">
                 <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 mb-8">
                     <span class="relative flex h-2 w-2">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
