@@ -54,7 +54,9 @@
         <x-home.navigation />
         
         <main class="relative z-10 flex-grow">
-            {{ $slot }}
+            <div class="max-w-5xl mx-auto">
+                {{ $slot }}
+            </div>
         </main>
 
         <x-home.footer />
