@@ -20,6 +20,10 @@ class QuickCommandPolicy
      */
     public function view(User $user, QuickCommand $quickCommand): bool
     {
+        if (config('sshelf.mode') === 'saas') {
+            return $quickCommand->user_id === $user->owner()->id;
+        }
+
         return $user->isAdmin() || $user->id === $quickCommand->user_id;
     }
 
@@ -36,6 +40,10 @@ class QuickCommandPolicy
      */
     public function update(User $user, QuickCommand $quickCommand): bool
     {
+        if (config('sshelf.mode') === 'saas') {
+            return $quickCommand->user_id === $user->owner()->id;
+        }
+
         return $user->isAdmin();
     }
 
@@ -44,6 +52,10 @@ class QuickCommandPolicy
      */
     public function delete(User $user, QuickCommand $quickCommand): bool
     {
+        if (config('sshelf.mode') === 'saas') {
+            return $quickCommand->user_id === $user->owner()->id;
+        }
+
         return $user->isAdmin();
     }
 }

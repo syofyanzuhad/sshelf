@@ -4,10 +4,40 @@
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 <div class="flex justify-between items-center mb-6">
                     <div>
-                        <h2 class="text-2xl font-bold">User Management</h2>
-                        <p class="text-sm text-gray-500">Manage user roles and platform access.</p>
+                        <h2 class="text-2xl font-bold">{{ config('sshelf.mode') === 'saas' ? 'Team Management' : 'User Management' }}</h2>
+                        <p class="text-sm text-gray-500">{{ config('sshelf.mode') === 'saas' ? 'Manage your team members and invites.' : 'Manage user roles and platform access.' }}</p>
                     </div>
+
+                    @if(config('sshelf.mode') === 'saas')
+                        <button 
+                            wire:click="generateInvitationLink"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-sm font-bold transition shadow-lg shadow-indigo-500/20 active:scale-95"
+                        >
+                            Invite Member
+                        </button>
+                    @endif
                 </div>
+
+                @if($invitationLink)
+                    <div class="mb-8 p-6 bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl border border-indigo-100 dark:border-indigo-800/50">
+                        <h4 class="text-sm font-bold text-indigo-900 dark:text-indigo-400 uppercase tracking-widest mb-3">New Invitation Link</h4>
+                        <div class="flex items-center space-x-3">
+                            <input type="text" readonly value="{{ $invitationLink }}" class="flex-grow bg-white dark:bg-gray-900 border-indigo-200 dark:border-indigo-800 rounded-xl text-sm px-4 py-2.5 font-mono text-gray-600 dark:text-gray-300">
+                            <button 
+                                x-data="{ copied: false }"
+                                @click="navigator.clipboard.writeText('{{ $invitationLink }}'); copied = true; setTimeout(() => copied = false, 2000)"
+                                class="bg-white dark:bg-gray-800 border border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-indigo-50 dark:hover:bg-gray-700 transition"
+                            >
+                                <span x-show="!copied">Copy Link</span>
+                                <span x-show="copied" class="text-green-600">Copied!</span>
+                            </button>
+                        </div>
+                        <p class="text-[10px] text-indigo-600 dark:text-indigo-400 font-bold uppercase tracking-widest mt-3 flex items-center">
+                            <svg class="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            Expires in 7 days
+                        </p>
+                    </div>
+                @endif
 
                 @if (session()->has('message'))
                     <div class="mb-4 p-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">

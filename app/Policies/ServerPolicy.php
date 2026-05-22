@@ -20,6 +20,10 @@ class ServerPolicy
      */
     public function view(User $user, Server $server): bool
     {
+        if (config('sshelf.mode') === 'saas') {
+            return $server->user_id === $user->owner()->id;
+        }
+
         return true;
     }
 
@@ -36,6 +40,10 @@ class ServerPolicy
      */
     public function update(User $user, Server $server): bool
     {
+        if (config('sshelf.mode') === 'saas') {
+            return $server->user_id === $user->owner()->id;
+        }
+
         return $user->isAdmin();
     }
 
@@ -44,6 +52,10 @@ class ServerPolicy
      */
     public function delete(User $user, Server $server): bool
     {
+        if (config('sshelf.mode') === 'saas') {
+            return $server->user_id === $user->owner()->id;
+        }
+
         return $user->isAdmin();
     }
 

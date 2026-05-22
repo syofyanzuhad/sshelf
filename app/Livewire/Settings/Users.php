@@ -3,6 +3,7 @@
 namespace App\Livewire\Settings;
 
 use App\Enums\UserRole;
+use App\Models\Invitation;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -11,9 +12,24 @@ class Users extends Component
 {
     use WithPagination;
 
+    public ?string $invitationLink = null;
+
     public function mount()
     {
         $this->authorize('manage', User::class);
+    }
+
+    public function generateInvitationLink()
+    {
+        $this->authorize('manage', User::class);
+
+        $invitation = Invitation::create([
+            'user_id' => auth()->id(),
+            'role' => UserRole::Viewer->value,
+            'expires_at' => now()->addDays(7),
+        ]);
+
+        $this->invitationLink = route('register', ['invitation' => $invitation->token]);
     }
 
     public function changeRole(User $user, string $role)
@@ -41,8 +57,13 @@ class Users extends Component
 
     public function render()
     {
-        $users = User::orderBy('name')
-            ->paginate(15);
+        $query = User::orderBy('name');
+
+        if (config('sshelf.mode') === 'saas') {
+            $query->where('parent_id', auth()->id());
+        }
+
+        $users = $query->paginate(15);
 
         return view('livewire.settings.users', [
             'users' => $users,

@@ -20,6 +20,10 @@ class SshKeyPolicy
      */
     public function view(User $user, SshKey $sshKey): bool
     {
+        if (config('sshelf.mode') === 'saas') {
+            return $sshKey->user_id === $user->owner()->id;
+        }
+
         return $user->isAdmin() || $user->id === $sshKey->user_id;
     }
 
@@ -36,6 +40,10 @@ class SshKeyPolicy
      */
     public function update(User $user, SshKey $sshKey): bool
     {
+        if (config('sshelf.mode') === 'saas') {
+            return $sshKey->user_id === $user->owner()->id;
+        }
+
         return $user->isAdmin();
     }
 
@@ -44,6 +52,10 @@ class SshKeyPolicy
      */
     public function delete(User $user, SshKey $sshKey): bool
     {
+        if (config('sshelf.mode') === 'saas') {
+            return $sshKey->user_id === $user->owner()->id;
+        }
+
         return $user->isAdmin();
     }
 }

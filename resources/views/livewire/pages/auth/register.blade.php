@@ -14,6 +14,12 @@ new #[Layout('layouts.guest')] class extends Component
     public string $email = '';
     public string $password = '';
     public string $password_confirmation = '';
+    public ?string $invitation = null;
+
+    public function mount(?string $invitation = null): void
+    {
+        $this->invitation = $invitation ?? request()->query('invitation');
+    }
 
     /**
      * Handle an incoming registration request.
@@ -28,7 +34,20 @@ new #[Layout('layouts.guest')] class extends Component
 
         $validated['password'] = Hash::make($validated['password']);
 
-        event(new Registered($user = User::create($validated)));
+        // Handle Invitation
+        $parent_id = null;
+        if (config('sshelf.mode') === 'saas' && $this->invitation) {
+            $invite = \App\Models\Invitation::where('token', $this->invitation)->first();
+            if ($invite && $invite->isValid()) {
+                $parent_id = $invite->user_id;
+                $validated['role'] = $invite->role;
+                $invite->update(['accepted_at' => now(), 'email' => $validated['email']]);
+            }
+        }
+
+        $user = User::create(array_merge($validated, ['parent_id' => $parent_id]));
+
+        event(new Registered($user));
 
         Auth::login($user);
 
@@ -41,6 +60,23 @@ new #[Layout('layouts.guest')] class extends Component
         <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Create an account</h2>
         <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Get started with Sshelf today.</p>
     </div>
+
+    @if($invitation)
+        @php
+            $invite = \App\Models\Invitation::where('token', $invitation)->first();
+        @endphp
+        @if($invite && $invite->isValid())
+            <div class="mb-6 p-4 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 rounded-xl flex items-center space-x-3">
+                <div class="bg-indigo-100 dark:bg-indigo-900/50 p-2 rounded-lg text-indigo-600 dark:text-indigo-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-indigo-900 dark:text-indigo-400 uppercase tracking-widest">Team Invitation</p>
+                    <p class="text-xs text-indigo-700 dark:text-indigo-300">You are joining <strong>{{ $invite->inviter->name }}'s</strong> team.</p>
+                </div>
+            </div>
+        @endif
+    @endif
 
     <form wire:submit="register" class="space-y-5">
         <!-- Name -->

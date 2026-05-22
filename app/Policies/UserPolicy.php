@@ -20,7 +20,15 @@ class UserPolicy
     public function delete(User $user, User $model): bool
     {
         // Prevent deleting yourself
-        return $user->isAdmin() && $user->id !== $model->id;
+        if ($user->id === $model->id) {
+            return false;
+        }
+
+        if (config('sshelf.mode') === 'saas') {
+            return $user->isAdmin() && $model->parent_id === $user->id;
+        }
+
+        return $user->isAdmin();
     }
 
     /**
@@ -28,6 +36,10 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
+        if (config('sshelf.mode') === 'saas') {
+            return $user->isAdmin() && $model->parent_id === $user->id;
+        }
+
         return $user->isAdmin();
     }
 }

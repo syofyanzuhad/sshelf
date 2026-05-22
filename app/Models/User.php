@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\UserRole;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -25,6 +26,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'parent_id',
     ];
 
     /**
@@ -51,14 +53,45 @@ class User extends Authenticatable
         ];
     }
 
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'parent_id');
+    }
+
+    public function members(): HasMany
+    {
+        return $this->hasMany(User::class, 'parent_id');
+    }
+
+    /**
+     * Get the effective owner of the resources.
+     */
+    public function owner(): User
+    {
+        if (config('sshelf.mode') === 'saas' && $this->parent_id) {
+            return $this->parent;
+        }
+
+        return $this;
+    }
+
+    public function isMember(): bool
+    {
+        return config('sshelf.mode') === 'saas' && $this->parent_id !== null;
+    }
+
     public function isAdmin(): bool
     {
+        if (config('sshelf.mode') === 'saas') {
+            return $this->parent_id === null;
+        }
+
         return $this->role === UserRole::Admin;
     }
 
     public function servers(): HasMany
     {
-        return $this->hasMany(Server::class);
+        return $this->hasMany(Server::class, 'user_id', 'id');
     }
 
     public function tags(): HasMany
