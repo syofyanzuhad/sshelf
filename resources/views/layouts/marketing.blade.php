@@ -63,6 +63,8 @@
         <x-home.footer />
     </div>
 
+    <x-home.support-modal />
+
     @livewireScripts
 </body>
 </html>

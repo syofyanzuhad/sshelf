@@ -15,14 +15,13 @@
         <div class="hidden lg:flex items-center space-x-8">
             <a href="{{ route('features') }}" class="text-[10px] font-bold {{ request()->routeIs('features') ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-gray-400' }} hover:text-indigo-600 dark:hover:text-indigo-400 transition uppercase tracking-[0.2em]">Features</a>
             <a href="{{ route('compare') }}" class="text-[10px] font-bold {{ request()->routeIs('compare') ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-gray-400' }} hover:text-indigo-600 dark:hover:text-indigo-400 transition uppercase tracking-[0.2em]">Compare</a>
-            <a href="https://ko-fi.com/syofyanzuhad" target="_blank" class="flex items-center space-x-1.5 text-[10px] font-bold text-red-500 hover:text-red-600 transition uppercase tracking-[0.2em]">
+            <button @click="$dispatch('open-support-modal')" class="flex items-center space-x-1.5 text-[10px] font-bold text-red-500 hover:text-red-600 transition uppercase tracking-[0.2em]">
                 <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                 </svg>
                 <span>Support</span>
-            </a>
-        </div>
-
+            </button>
+            </div>
         <div class="flex items-center space-x-5">
             <div class="hidden lg:flex items-center space-x-5 border-r border-gray-200 dark:border-gray-800 pr-5">
                 <x-github-link class="text-[10px] font-bold text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition uppercase tracking-[0.2em]" />
