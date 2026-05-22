@@ -26,10 +26,18 @@
                             </div>
                             <div class="h-2 w-full bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
                                 @php
-                                    $percentage = $stat['limit'] === -1 ? 0 : min(($stat['current'] / $stat['limit']) * 100, 100);
+                                    $percentage = 0;
+                                    if ($stat['limit'] === -1) {
+                                        $percentage = 100;
+                                    } elseif ($stat['limit'] > 0) {
+                                        $percentage = min(($stat['current'] / $stat['limit']) * 100, 100);
+                                    } else {
+                                        $percentage = $stat['current'] > 0 ? 100 : 0;
+                                    }
+
                                     $color = $percentage >= 90 ? 'bg-red-500' : ($percentage >= 70 ? 'bg-yellow-500' : 'bg-indigo-500');
                                 @endphp
-                                <div class="h-full {{ $color }} transition-all duration-500" style="width: {{ $stat['limit'] === -1 ? '100%' : $percentage . '%' }}"></div>
+                                <div class="h-full {{ $color }} transition-all duration-500" style="width: {{ $percentage . '%' }}"></div>
                             </div>
                             @if($stat['limit'] !== -1 && $stat['current'] >= $stat['limit'])
                                 <p class="text-[10px] text-red-500 font-medium">Limit tercapai. Tingkatkan paket untuk menambah lebih banyak.</p>
