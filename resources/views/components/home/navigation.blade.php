@@ -12,8 +12,8 @@
                 </a>
 
                 <div class="hidden lg:flex items-center space-x-12">
-                    <a href="{{ route('features') }}" class="text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition uppercase tracking-[0.2em]">Features</a>
-                    <a href="{{ route('compare') }}" class="text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition uppercase tracking-[0.2em]">Compare</a>
+                    <a href="{{ route('features') }}" class="text-xs font-bold {{ request()->routeIs('features') ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-gray-400' }} hover:text-indigo-600 dark:hover:text-indigo-400 transition uppercase tracking-[0.2em]">Features</a>
+                    <a href="{{ route('compare') }}" class="text-xs font-bold {{ request()->routeIs('compare') ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-gray-400' }} hover:text-indigo-600 dark:hover:text-indigo-400 transition uppercase tracking-[0.2em]">Compare</a>
                     <div class="h-4 w-px bg-gray-200 dark:bg-gray-800"></div>
                     <x-github-link class="text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition uppercase tracking-[0.2em]" />
                 </div>
