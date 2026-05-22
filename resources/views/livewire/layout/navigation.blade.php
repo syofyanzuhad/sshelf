@@ -86,6 +86,12 @@ new class extends Component
                     </x-slot>
 
                     <x-slot name="content">
+                        @if(config('sshelf.mode') === 'saas')
+                        <x-dropdown-link :href="route('subscription')" wire:navigate>
+                            {{ __('Subscription') }}
+                        </x-dropdown-link>
+                        @endif
+
                         <x-dropdown-link :href="route('profile')" wire:navigate>
                             {{ __('Profile') }}
                         </x-dropdown-link>
@@ -154,6 +160,12 @@ new class extends Component
             </div>
 
             <div class="mt-3 space-y-1">
+                @if(config('sshelf.mode') === 'saas')
+                <x-responsive-nav-link :href="route('subscription')" wire:navigate>
+                    {{ __('Subscription') }}
+                </x-responsive-nav-link>
+                @endif
+
                 <x-responsive-nav-link :href="route('profile')" wire:navigate>
                     {{ __('Profile') }}
                 </x-responsive-nav-link>

@@ -20,6 +20,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('keys', SshKeys::class)->name('keys');
     Route::get('users', Users::class)->name('users');
     Route::get('tokens', ApiTokens::class)->name('tokens');
+    Route::get('subscription', \App\Livewire\Settings\Subscription::class)->name('subscription');
 });
 
 Route::view('profile', 'profile')
