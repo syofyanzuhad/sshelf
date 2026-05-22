@@ -54,7 +54,7 @@
         <x-home.navigation />
         
         <main class="relative z-10 flex-grow">
-            <div class="max-w-6xl mx-auto">
+            <div class="max-w-7xl mx-auto">
                 {{ $slot }}
             </div>
         </main>

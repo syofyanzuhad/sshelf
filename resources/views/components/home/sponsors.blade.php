@@ -1,4 +1,4 @@
-            <section class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-32 border-t border-gray-200 dark:border-gray-800">
+            <section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 border-t border-gray-200 dark:border-gray-800">
                 <div class="text-center mb-16">
                     <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-pink-50 dark:bg-pink-500/10 border border-pink-100 dark:border-pink-500/20 mb-4">
                         <svg class="w-3 h-3 text-pink-500" fill="currentColor" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
