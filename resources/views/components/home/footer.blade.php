@@ -1,4 +1,4 @@
-            <footer class="relative z-10 w-full border-t border-gray-200 dark:border-gray-800">
+            <footer x-data="{}" class="relative z-10 w-full border-t border-gray-200 dark:border-gray-800">
                 <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
                     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
                         <div class="col-span-2 lg:col-span-2">

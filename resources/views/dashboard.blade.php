@@ -8,7 +8,7 @@
     <div class="py-6 sm:py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
             <!-- Support Banner -->
-            <div class="bg-indigo-600 rounded-xl p-4 text-white flex flex-col sm:flex-row justify-between items-center gap-4 shadow-lg shadow-indigo-500/20">
+            <div x-data="{}" class="bg-indigo-600 rounded-xl p-4 text-white flex flex-col sm:flex-row justify-between items-center gap-4 shadow-lg shadow-indigo-500/20">
                 <div class="flex items-center space-x-3">
                     <div class="bg-white/20 p-2 rounded-lg">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -1,4 +1,4 @@
-<nav class="relative z-20 w-full">
+<nav x-data="{}" class="relative z-20 w-full">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex justify-between items-center">
         <a href="/" class="flex items-center space-x-3 group">
             <div class="bg-indigo-600 p-1.5 rounded-lg shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform">
