@@ -11,6 +11,7 @@
     "require": {
         "php": "^8.3",
         "laravel/framework": "^13.8",
+        "laravel/nightwatch": "^1.27",
         "laravel/pulse": "^1.7",
         "laravel/reverb": "^1.0",
         "laravel/sanctum": "^4.0",
