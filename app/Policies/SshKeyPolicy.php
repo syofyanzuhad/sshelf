@@ -32,6 +32,10 @@ class SshKeyPolicy
      */
     public function create(User $user): bool
     {
+        if (config('sshelf.mode') === 'saas') {
+            return $user->isAdmin() && ! $user->reachedLimit('ssh_keys');
+        }
+
         return $user->isAdmin();
     }
 

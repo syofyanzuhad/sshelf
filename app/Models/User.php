@@ -27,6 +27,7 @@ class User extends Authenticatable
         'password',
         'role',
         'parent_id',
+        'plan',
     ];
 
     /**
@@ -50,6 +51,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'role' => UserRole::class,
+            'plan' => \App\Enums\Plan::class,
         ];
     }
 
@@ -87,6 +89,29 @@ class User extends Authenticatable
         }
 
         return $this->role === UserRole::Admin;
+    }
+
+    public function reachedLimit(string $feature): bool
+    {
+        if (config('sshelf.mode') !== 'saas') {
+            return false;
+        }
+
+        $owner = $this->owner();
+        $limit = $owner->plan->limits()[$feature] ?? -1;
+
+        if ($limit === -1) {
+            return false;
+        }
+
+        $count = match($feature) {
+            'servers' => $owner->servers()->count(),
+            'ssh_keys' => $owner->sshKeys()->count(),
+            'members' => $owner->members()->count(),
+            default => 0,
+        };
+
+        return $count >= $limit;
     }
 
     public function servers(): HasMany

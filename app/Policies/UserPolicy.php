@@ -15,6 +15,18 @@ class UserPolicy
     }
 
     /**
+     * Determine whether the user can create a user.
+     */
+    public function create(User $user): bool
+    {
+        if (config('sshelf.mode') === 'saas') {
+            return $user->isAdmin() && ! $user->reachedLimit('members');
+        }
+
+        return $user->isAdmin();
+    }
+
+    /**
      * Determine whether the user can delete a user.
      */
     public function delete(User $user, User $model): bool

@@ -32,6 +32,10 @@ class ServerPolicy
      */
     public function create(User $user): bool
     {
+        if (config('sshelf.mode') === 'saas') {
+            return $user->isAdmin() && ! $user->reachedLimit('servers');
+        }
+
         return $user->isAdmin();
     }
 
