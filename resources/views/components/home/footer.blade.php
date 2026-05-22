@@ -24,6 +24,7 @@
                             <ul class="space-y-4 text-sm text-gray-500">
                                 <li><a href="{{ route('features') }}" class="hover:text-indigo-500 transition">Features</a></li>
                                 <li><a href="{{ route('compare') }}" class="hover:text-indigo-500 transition">Compare</a></li>
+                                <li><a href="{{ url('/#pricing') }}" class="hover:text-indigo-500 transition">Pricing</a></li>
                                 <li><a href="#" class="hover:text-indigo-500 transition">Releases</a></li>
                             </ul>
                         </div>
