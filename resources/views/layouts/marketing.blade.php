@@ -41,6 +41,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
     <x-theme-script />
 </head>
 <body class="antialiased font-sans bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 selection:bg-indigo-500 selection:text-white">
@@ -61,5 +62,7 @@
 
         <x-home.footer />
     </div>
+
+    @livewireScripts
 </body>
 </html>

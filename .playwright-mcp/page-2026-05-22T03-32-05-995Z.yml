@@ -1,0 +1,286 @@
+- generic [ref=e2]:
+  - navigation [ref=e3]:
+    - generic [ref=e4]:
+      - link "Sshelf Secure Vault" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e7]
+        - generic [ref=e9]:
+          - generic [ref=e10]: Sshelf
+          - generic [ref=e11]: Secure Vault
+      - generic [ref=e12]:
+        - link "Features" [ref=e13] [cursor=pointer]:
+          - /url: http://sshelf.test/features
+        - link "Compare" [ref=e14] [cursor=pointer]:
+          - /url: http://sshelf.test/compare
+        - link "Support" [ref=e15] [cursor=pointer]:
+          - /url: https://ko-fi.com/syofyanzuhad
+          - img [ref=e16]
+          - generic [ref=e18]: Support
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - link "GitHub 1" [ref=e21] [cursor=pointer]:
+            - /url: https://github.com/syofyanzuhad/sshelf
+            - img [ref=e22]
+            - generic [ref=e24]: GitHub
+            - generic [ref=e25]:
+              - img [ref=e26]
+              - generic [ref=e28]: "1"
+          - button "Toggle dark mode" [ref=e29] [cursor=pointer]:
+            - img [ref=e30]
+        - generic [ref=e32]:
+          - link "Log in" [ref=e33] [cursor=pointer]:
+            - /url: http://sshelf.test/login
+          - link "Get Started" [ref=e34] [cursor=pointer]:
+            - /url: http://sshelf.test/register
+  - main [ref=e35]:
+    - generic [ref=e37]:
+      - generic [ref=e42]: Public Beta v0.1.0
+      - heading "Your SSH Keys, Finally Organized." [level=1] [ref=e43]:
+        - text: Your SSH Keys,
+        - text: Finally Organized.
+      - paragraph [ref=e44]: Sshelf is the secure home for your server credentials. Manage multiple environments, audit connections, and access a real-time terminal directly from your browser.
+      - generic [ref=e45]:
+        - link "Start for Free" [ref=e46] [cursor=pointer]:
+          - /url: http://sshelf.test/register
+        - link "Log in to Account" [ref=e47] [cursor=pointer]:
+          - /url: http://sshelf.test/login
+      - generic [ref=e50]:
+        - generic [ref=e51]:
+          - generic [ref=e56]: ssh-terminal — production-api
+          - generic [ref=e59]: Connected
+        - generic [ref=e60]:
+          - generic [ref=e61]:
+            - generic [ref=e62]: ➜
+            - generic [ref=e63]: ~
+            - generic [ref=e64]: sshelf connect production-api
+          - generic [ref=e65]: Authenticating with Ed25519 key...
+          - generic [ref=e66]: Connection established.
+          - generic [ref=e67]:
+            - text: Welcome to Ubuntu 24.04 LTS (GNU/Linux 6.8.0-31-generic x86_64)
+            - text: "Last login: Fri May 22 03:27:03 from 192.168.1.100"
+          - generic [ref=e68]:
+            - generic [ref=e69]: root@prod-api
+            - generic [ref=e70]: ":"
+            - generic [ref=e71]: ~
+            - generic [ref=e72]: "#"
+      - generic [ref=e74]:
+        - generic [ref=e75]:
+          - heading "Everything you need" [level=2] [ref=e76]
+          - paragraph [ref=e77]: Powerful features designed for developers and system administrators.
+        - generic [ref=e78]:
+          - generic [ref=e79]:
+            - generic [ref=e80]:
+              - img [ref=e82]
+              - heading "Encrypted Vault" [level=3] [ref=e84]
+            - paragraph [ref=e85]: Credentials encrypted at rest using AES-256-GCM. Your secrets never leave your server unencrypted.
+          - generic [ref=e86]:
+            - generic [ref=e87]:
+              - img [ref=e89]
+              - heading "Web Terminal" [level=3] [ref=e91]
+            - paragraph [ref=e92]: Full-featured xterm.js terminal in your browser. Perform maintenance from any device, anywhere.
+          - generic [ref=e93]:
+            - generic [ref=e94]:
+              - img [ref=e96]
+              - heading "Audit Trails" [level=3] [ref=e98]
+            - paragraph [ref=e99]: Every connection is logged. Track session times, durations, IP addresses, and user agents.
+          - generic [ref=e100]:
+            - generic [ref=e101]:
+              - img [ref=e103]
+              - heading "Smart Folders" [level=3] [ref=e105]
+            - paragraph [ref=e106]: Organize servers into groups and tags. Find what you need in seconds with powerful real-time search.
+          - generic [ref=e107]:
+            - generic [ref=e108]:
+              - img [ref=e110]
+              - heading "Self-Host Anywhere" [level=3] [ref=e112]
+            - paragraph [ref=e113]: Deploy Sshelf on your own infrastructure, home lab, or private cloud for ultimate privacy and control.
+          - generic [ref=e114]:
+            - generic [ref=e115]:
+              - img [ref=e117]
+              - heading "Docker & One-Click" [level=3] [ref=e119]
+            - paragraph [ref=e120]: Deploy in seconds using our Docker image, or use one-click templates for Railway and Coolify.
+          - generic [ref=e121]:
+            - generic [ref=e122]:
+              - img [ref=e124]
+              - heading "Role-Based Access" [level=3] [ref=e126]
+            - paragraph [ref=e127]: Create Admins or Viewers with specific permissions. Perfect for secure team collaboration.
+          - generic [ref=e128]:
+            - generic [ref=e129]:
+              - img [ref=e131]
+              - heading "Live Health Metrics" [level=3] [ref=e133]
+            - paragraph [ref=e134]: Background jobs poll servers and stream real-time CPU, Memory, and Disk usage to your dashboard.
+          - generic [ref=e135]:
+            - generic [ref=e136]:
+              - img [ref=e138]
+              - heading "CLI Bridge API" [level=3] [ref=e140]
+            - paragraph [ref=e141]: Generate API tokens to securely retrieve credentials or execute commands from your local CLI.
+      - heading "Deploy in Seconds" [level=2] [ref=e142]
+      - generic [ref=e143]:
+        - generic [ref=e144]:
+          - generic [ref=e145]: docker-compose.yml
+          - button
+        - code [ref=e148]: docker run -d --name sshelf -p 8080:80 sshelf/sshelf:latest
+      - generic [ref=e149]:
+        - generic [ref=e150]:
+          - heading "Security by Design" [level=2] [ref=e151]
+          - paragraph [ref=e152]: Your credentials are protected by multiple layers of encryption and isolation.
+        - generic [ref=e155]:
+          - generic [ref=e156]:
+            - img [ref=e158]
+            - heading "Your Browser" [level=3] [ref=e160]
+            - paragraph [ref=e161]: Secure WebSocket connection (WSS) using TLS 1.3 for real-time terminal access.
+          - generic [ref=e162]:
+            - generic [ref=e163]: Secure Hub
+            - img [ref=e165]
+            - heading "Sshelf Vault" [level=3] [ref=e167]
+            - paragraph [ref=e168]: AES-256-GCM encryption at rest. Master key is never stored in the database.
+          - generic [ref=e169]:
+            - img [ref=e171]
+            - heading "Target Server" [level=3] [ref=e173]
+            - paragraph [ref=e174]: Direct SSH connection using Ed25519 keys or encrypted passwords.
+      - generic [ref=e175]:
+        - generic [ref=e176]:
+          - heading "Why choose Sshelf?" [level=2] [ref=e177]
+          - paragraph [ref=e178]: The modern way to manage your infrastructure securely.
+        - table [ref=e180]:
+          - rowgroup [ref=e181]:
+            - row "Feature Sshelf Traditional SSH" [ref=e182]:
+              - columnheader "Feature" [ref=e183]
+              - columnheader "Sshelf" [ref=e184]
+              - columnheader "Traditional SSH" [ref=e185]
+          - rowgroup [ref=e186]:
+            - row "Encrypted at Rest AES-256-GCM protection" [ref=e187]:
+              - cell "Encrypted at Rest AES-256-GCM protection" [ref=e188]:
+                - generic [ref=e189]: Encrypted at Rest
+                - generic [ref=e190]: AES-256-GCM protection
+              - cell [ref=e191]:
+                - img [ref=e192]
+              - cell [ref=e194]:
+                - img [ref=e195]
+            - row "Web-Based Terminal Access from anywhere" [ref=e197]:
+              - cell "Web-Based Terminal Access from anywhere" [ref=e198]:
+                - generic [ref=e199]: Web-Based Terminal
+                - generic [ref=e200]: Access from anywhere
+              - cell [ref=e201]:
+                - img [ref=e202]
+              - cell [ref=e204]:
+                - img [ref=e205]
+            - row "Audit & Logging Track every connection" [ref=e207]:
+              - cell "Audit & Logging Track every connection" [ref=e208]:
+                - generic [ref=e209]: Audit & Logging
+                - generic [ref=e210]: Track every connection
+              - cell [ref=e211]:
+                - img [ref=e212]
+              - cell [ref=e214]:
+                - img [ref=e215]
+            - row "Role-Based Access Team collaboration Limited" [ref=e217]:
+              - cell "Role-Based Access Team collaboration" [ref=e218]:
+                - generic [ref=e219]: Role-Based Access
+                - generic [ref=e220]: Team collaboration
+              - cell [ref=e221]:
+                - img [ref=e222]
+              - cell "Limited" [ref=e224]
+      - generic [ref=e225]:
+        - generic [ref=e226]:
+          - heading "Frequently Asked Questions" [level=2] [ref=e227]
+          - paragraph [ref=e228]: Everything you need to know about Sshelf.
+        - generic [ref=e229]:
+          - generic [ref=e230]:
+            - button "Is Sshelf really free?" [ref=e231] [cursor=pointer]:
+              - generic [ref=e232]: Is Sshelf really free?
+              - img [ref=e233]
+            - generic [ref=e235]: Yes! Sshelf is open-source and free to self-host. You can use it for personal or commercial projects without any license fees.
+          - generic [ref=e236]:
+            - button "How secure is the credential storage?" [ref=e237] [cursor=pointer]:
+              - generic [ref=e238]: How secure is the credential storage?
+              - img [ref=e239]
+            - generic [ref=e241]: Extremely. We use AES-256-GCM encryption. The encryption key is derived from your unique APP_KEY. Even if your database is compromised, your credentials remain encrypted.
+          - generic [ref=e242]:
+            - button "Can I use it with my existing SSH keys?" [ref=e243] [cursor=pointer]:
+              - generic [ref=e244]: Can I use it with my existing SSH keys?
+              - img [ref=e245]
+            - generic [ref=e247]: Absolutely. You can import your existing private keys or generate new Ed25519 keys directly within Sshelf.
+          - generic [ref=e248]:
+            - button "What happens if I lose my APP_KEY?" [ref=e249] [cursor=pointer]:
+              - generic [ref=e250]: What happens if I lose my APP_KEY?
+              - img [ref=e251]
+            - generic [ref=e253]: Your APP_KEY is the master key for all encryption. If you lose it, you will lose access to all stored passwords and private keys. We recommend backing it up securely.
+          - generic [ref=e254]:
+            - button "Does Sshelf support 2FA?" [ref=e255] [cursor=pointer]:
+              - generic [ref=e256]: Does Sshelf support 2FA?
+              - img [ref=e257]
+            - generic [ref=e259]: Yes, Sshelf integrates with standard Laravel authentication, supporting Email verification and 2FA via community packages or custom implementation.
+      - generic [ref=e266]:
+        - heading "Proudly Open Source" [level=2] [ref=e267]
+        - paragraph [ref=e268]: Transparency is in our DNA. Sshelf is built for the community, by the community. Join us in building the most secure self-hosted SSH vault.
+        - generic [ref=e269]:
+          - link "Star on GitHub" [ref=e270] [cursor=pointer]:
+            - /url: https://github.com/syofyanzuhad/sshelf
+          - link "Join Discord Community" [ref=e271] [cursor=pointer]:
+            - /url: "#"
+      - generic [ref=e272]:
+        - generic [ref=e273]:
+          - generic [ref=e274]:
+            - img [ref=e275]
+            - generic [ref=e277]: Our Supporters
+          - heading "Community Sponsored" [level=2] [ref=e278]
+          - paragraph [ref=e279]: Sshelf is an open-source project powered by the community. Huge thanks to our amazing sponsors!
+        - generic [ref=e280]:
+          - generic [ref=e281]: SPONSOR 1
+          - generic [ref=e282]: SPONSOR 2
+          - generic [ref=e283]: SPONSOR 3
+          - generic [ref=e284]: SPONSOR 4
+        - link "Become a Sponsor" [ref=e286] [cursor=pointer]:
+          - /url: https://github.com/sponsors/syofyanzuhad
+          - img [ref=e287]
+          - generic [ref=e289]: Become a Sponsor
+  - contentinfo [ref=e290]:
+    - generic [ref=e291]:
+      - generic [ref=e292]:
+        - generic [ref=e293]:
+          - link "Sshelf" [ref=e294] [cursor=pointer]:
+            - /url: /
+            - img [ref=e296]
+            - generic [ref=e298]: Sshelf
+          - paragraph [ref=e299]: The secure, self-hosted vault for your server credentials and real-time terminal access.
+          - link [ref=e301] [cursor=pointer]:
+            - /url: https://github.com/syofyanzuhad/sshelf
+            - img [ref=e302]
+        - generic [ref=e304]:
+          - heading "Product" [level=4] [ref=e305]
+          - list [ref=e306]:
+            - listitem [ref=e307]:
+              - link "Features" [ref=e308] [cursor=pointer]:
+                - /url: http://sshelf.test/features
+            - listitem [ref=e309]:
+              - link "Compare" [ref=e310] [cursor=pointer]:
+                - /url: http://sshelf.test/compare
+            - listitem [ref=e311]:
+              - link "Releases" [ref=e312] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=e313]:
+          - heading "Resources" [level=4] [ref=e314]
+          - list [ref=e315]:
+            - listitem [ref=e316]:
+              - link "Documentation" [ref=e317] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e318]:
+              - link "GitHub" [ref=e319] [cursor=pointer]:
+                - /url: https://github.com/syofyanzuhad/sshelf
+            - listitem [ref=e320]:
+              - link "Support Us" [ref=e321] [cursor=pointer]:
+                - /url: https://ko-fi.com/syofyanzuhad
+        - generic [ref=e322]:
+          - heading "Legal" [level=4] [ref=e323]
+          - list [ref=e324]:
+            - listitem [ref=e325]:
+              - link "Privacy Policy" [ref=e326] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e327]:
+              - link "License" [ref=e328] [cursor=pointer]:
+                - /url: "#"
+      - generic [ref=e329]:
+        - paragraph [ref=e330]: © 2026 Sshelf. Securely self-hosted for maximum privacy.
+        - paragraph [ref=e331]:
+          - text: Created with ❤️ by
+          - link "Syofyan Zuhad" [ref=e332] [cursor=pointer]:
+            - /url: https://syofyanzuhad.dev

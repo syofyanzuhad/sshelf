@@ -1,0 +1,221 @@
+- generic [ref=e2]:
+  - navigation [ref=e3]:
+    - generic [ref=e4]:
+      - link "Sshelf Secure Vault" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e7]
+        - generic [ref=e9]:
+          - generic [ref=e10]: Sshelf
+          - generic [ref=e11]: Secure Vault
+      - generic [ref=e12]:
+        - link "Features" [ref=e13] [cursor=pointer]:
+          - /url: http://sshelf.test/features
+        - link "Compare" [ref=e14] [cursor=pointer]:
+          - /url: http://sshelf.test/compare
+        - link "Support" [ref=e15] [cursor=pointer]:
+          - /url: https://ko-fi.com/syofyanzuhad
+          - img [ref=e16]
+          - generic [ref=e18]: Support
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - link "GitHub 1" [ref=e21] [cursor=pointer]:
+            - /url: https://github.com/syofyanzuhad/sshelf
+            - img [ref=e22]
+            - generic [ref=e24]: GitHub
+            - generic [ref=e25]:
+              - img [ref=e26]
+              - generic [ref=e28]: "1"
+          - button "Toggle dark mode" [ref=e29] [cursor=pointer]:
+            - img [ref=e30]
+        - generic [ref=e32]:
+          - link "Log in" [ref=e33] [cursor=pointer]:
+            - /url: http://sshelf.test/login
+          - link "Get Started" [ref=e34] [cursor=pointer]:
+            - /url: http://sshelf.test/register
+  - main [ref=e35]:
+    - generic [ref=e37]:
+      - generic [ref=e38]:
+        - heading "Built for Security & Speed" [level=1] [ref=e39]
+        - paragraph [ref=e40]: Sshelf isn't just a wrapper. It's a purpose-built platform for modern infrastructure management. Explore the tech that keeps your servers safe and accessible.
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - generic [ref=e43]:
+            - generic [ref=e44]: Security First
+            - heading "The Sshelf Vault Architecture" [level=2] [ref=e45]
+            - paragraph [ref=e46]: We use Laravel's native encryption layer to secure every sensitive byte. Unlike desktop clients that store keys in plaintext or easily guessable folders, Sshelf implements a zero-trust storage model on your server.
+            - list [ref=e47]:
+              - listitem [ref=e48]:
+                - img [ref=e49]
+                - generic [ref=e51]:
+                  - strong [ref=e52]: AES-256-GCM Encryption
+                  - text: ": Industry standard authenticated encryption for passwords and private keys."
+              - listitem [ref=e53]:
+                - img [ref=e54]
+                - generic [ref=e56]:
+                  - strong [ref=e57]: Isolated Environment
+                  - text: ": Credentials never leave the application unencrypted except during the actual SSH handshake."
+              - listitem [ref=e58]:
+                - img [ref=e59]
+                - generic [ref=e61]:
+                  - strong [ref=e62]: EncryptedNullable Casts
+                  - text: ": Custom Eloquent casts handle encryption seamlessly at the model layer."
+          - generic [ref=e64]: // app/Models/Server.php protected $casts = [ 'password' => EncryptedNullable::class, 'private_key' => EncryptedNullable::class, ]; // Data is automatically encrypted before // hitting the database and decrypted on read.
+        - generic [ref=e65]:
+          - generic [ref=e66]:
+            - generic [ref=e71]: "Architecture: Reverb + Worker"
+            - generic [ref=e72]:
+              - generic [ref=e73]: "[BROWSER] <--> [REVERB WEBSOCKET]"
+              - generic [ref=e74]: "|"
+              - generic [ref=e75]: "[SSH WORKER]"
+              - generic [ref=e76]: "|"
+              - generic [ref=e77]: "[REMOTE SERVER]"
+              - generic [ref=e78]: // Real-time, low-latency execution
+          - generic [ref=e79]:
+            - generic [ref=e80]: Live Terminal
+            - heading "Real-time Stream Engine" [level=2] [ref=e81]
+            - paragraph [ref=e82]: Sshelf uses a unique combination of **Laravel Reverb** and background artisan workers to deliver a high-performance terminal experience without blocking your web server.
+            - list [ref=e83]:
+              - listitem [ref=e84]:
+                - img [ref=e85]
+                - generic [ref=e87]:
+                  - strong [ref=e88]: Xterm.js
+                  - text: ": The same engine that powers VS Code's terminal, right in your browser."
+              - listitem [ref=e89]:
+                - img [ref=e90]
+                - generic [ref=e92]:
+                  - strong [ref=e93]: Reverb WebSockets
+                  - text: ": Ultra-fast, bi-directional communication with zero overhead."
+              - listitem [ref=e94]:
+                - img [ref=e95]
+                - generic [ref=e97]:
+                  - strong [ref=e98]: Output Buffering
+                  - text: ": Sshelf maintains a 2000-char buffer so you can refresh the page without losing context."
+        - generic [ref=e99]:
+          - generic [ref=e100]:
+            - generic [ref=e101]: Compliance & Transparency
+            - heading "Unrivaled Audit Trails" [level=2] [ref=e102]
+            - paragraph [ref=e103]: In a shared environment, knowing "who connected when" is critical. Sshelf logs every session request and termination, giving you a full paper trail of infrastructure access.
+            - generic [ref=e104]:
+              - generic [ref=e105]:
+                - generic [ref=e106]: IP Tracking
+                - generic [ref=e107]: Origin Captured
+              - generic [ref=e108]:
+                - generic [ref=e109]: Durations
+                - generic [ref=e110]: Session Timing
+          - table [ref=e112]:
+            - rowgroup [ref=e113]:
+              - row "Server IP Status" [ref=e114]:
+                - columnheader "Server" [ref=e115]
+                - columnheader "IP" [ref=e116]
+                - columnheader "Status" [ref=e117]
+              - row "prod-api-01 192.168.1.1 Success" [ref=e118]:
+                - cell "prod-api-01" [ref=e119]
+                - cell "192.168.1.1" [ref=e120]
+                - cell "Success" [ref=e121]
+              - row "staging-db 10.0.0.45 Failed" [ref=e122]:
+                - cell "staging-db" [ref=e123]
+                - cell "10.0.0.45" [ref=e124]
+                - cell "Failed" [ref=e125]
+        - generic [ref=e126]:
+          - generic [ref=e127]:
+            - generic [ref=e128]:
+              - generic [ref=e129]: CPU
+              - generic [ref=e130]: 12.4%
+            - generic [ref=e131]:
+              - generic [ref=e132]: Memory
+              - generic [ref=e133]: 45.8%
+            - generic [ref=e134]:
+              - generic [ref=e135]: Disk
+              - generic [ref=e136]: 72.0%
+            - generic [ref=e141]: Live Reverb WebSocket Stream
+          - generic [ref=e142]:
+            - generic [ref=e143]: Monitoring
+            - heading "Live Health Telemetry" [level=2] [ref=e144]
+            - paragraph [ref=e145]: Sshelf doesn't just manage connections; it monitors your server vitals without requiring complex agent installations on your target machines.
+            - list [ref=e146]:
+              - listitem [ref=e147]:
+                - img [ref=e148]
+                - generic [ref=e150]:
+                  - strong [ref=e151]: Agentless Checks
+                  - text: ": Utilizes standard SSH commands like `top` and `free` to grab data, leaving a zero-install footprint."
+              - listitem [ref=e152]:
+                - img [ref=e153]
+                - generic [ref=e155]:
+                  - strong [ref=e156]: Live Dashboard
+                  - text: ": Laravel Reverb pushes new metrics to your Livewire dashboard in real-time."
+        - generic [ref=e157]:
+          - generic [ref=e158]:
+            - generic [ref=e159]: Access Management
+            - heading "RBAC & API Bridge" [level=2] [ref=e160]
+            - paragraph [ref=e161]: Built for teams and automation. Sshelf implements Role-Based Access Control and secure API tokens so you can safely distribute access and script operations.
+            - list [ref=e162]:
+              - listitem [ref=e163]:
+                - img [ref=e164]
+                - generic [ref=e166]:
+                  - strong [ref=e167]: Admin & Viewer Roles
+                  - text: ": Restrict team members to read/connect access without allowing them to modify servers or credentials."
+              - listitem [ref=e168]:
+                - img [ref=e169]
+                - generic [ref=e171]:
+                  - strong [ref=e172]: Sanctum API Tokens
+                  - text: ": Generate revocable API keys to integrate Sshelf with your external CLI tools or CI/CD pipelines."
+          - generic [ref=e174]: "# Use your Sshelf token from the CLI curl -X POST https://sshelf.app/api/v1/servers/1/execute \\ -H \"Authorization: Bearer 1|abcdef...\" \\ -H \"Content-Type: application/json\" \\ -d '{\"command\": \"tail -n 50 /var/log/syslog\"}'"
+      - generic [ref=e175]:
+        - heading "Ready to secure your shelf?" [level=2] [ref=e176]
+        - paragraph [ref=e177]: Join developers who trust Sshelf for their emergency fixes, maintenance, and multi-server management.
+        - generic [ref=e178]:
+          - link "Get Started Now" [ref=e179] [cursor=pointer]:
+            - /url: http://sshelf.test/register
+          - link "View GitHub" [ref=e180] [cursor=pointer]:
+            - /url: https://github.com/syofyanzuhad/sshelf
+  - contentinfo [ref=e181]:
+    - generic [ref=e182]:
+      - generic [ref=e183]:
+        - generic [ref=e184]:
+          - link "Sshelf" [ref=e185] [cursor=pointer]:
+            - /url: /
+            - img [ref=e187]
+            - generic [ref=e189]: Sshelf
+          - paragraph [ref=e190]: The secure, self-hosted vault for your server credentials and real-time terminal access.
+          - link [ref=e192] [cursor=pointer]:
+            - /url: https://github.com/syofyanzuhad/sshelf
+            - img [ref=e193]
+        - generic [ref=e195]:
+          - heading "Product" [level=4] [ref=e196]
+          - list [ref=e197]:
+            - listitem [ref=e198]:
+              - link "Features" [ref=e199] [cursor=pointer]:
+                - /url: http://sshelf.test/features
+            - listitem [ref=e200]:
+              - link "Compare" [ref=e201] [cursor=pointer]:
+                - /url: http://sshelf.test/compare
+            - listitem [ref=e202]:
+              - link "Releases" [ref=e203] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=e204]:
+          - heading "Resources" [level=4] [ref=e205]
+          - list [ref=e206]:
+            - listitem [ref=e207]:
+              - link "Documentation" [ref=e208] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e209]:
+              - link "GitHub" [ref=e210] [cursor=pointer]:
+                - /url: https://github.com/syofyanzuhad/sshelf
+            - listitem [ref=e211]:
+              - link "Support Us" [ref=e212] [cursor=pointer]:
+                - /url: https://ko-fi.com/syofyanzuhad
+        - generic [ref=e213]:
+          - heading "Legal" [level=4] [ref=e214]
+          - list [ref=e215]:
+            - listitem [ref=e216]:
+              - link "Privacy Policy" [ref=e217] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e218]:
+              - link "License" [ref=e219] [cursor=pointer]:
+                - /url: "#"
+      - generic [ref=e220]:
+        - paragraph [ref=e221]: © 2026 Sshelf. Securely self-hosted for maximum privacy.
+        - paragraph [ref=e222]:
+          - text: Created with ❤️ by
+          - link "Syofyan Zuhad" [ref=e223] [cursor=pointer]:
+            - /url: https://syofyanzuhad.dev

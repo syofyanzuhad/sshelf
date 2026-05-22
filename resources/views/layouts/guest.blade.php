@@ -11,11 +11,11 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        
+        @livewireStyles
         <x-theme-script />
     </head>
     <body class="font-sans text-gray-900 antialiased bg-gray-50 dark:bg-gray-950 min-h-screen selection:bg-indigo-500 selection:text-white flex items-center justify-center relative overflow-hidden">
@@ -48,5 +48,7 @@
                 &copy; {{ date('Y') }} {{ config('app.name', 'Sshelf') }}. All rights reserved.
             </div>
         </div>
+
+        @livewireScripts
     </body>
 </html>
