@@ -32,10 +32,9 @@
                             <ul class="space-y-4 text-sm text-gray-500">
                                 <li><a href="#" class="hover:text-indigo-500 transition">Documentation</a></li>
                                 <li><a href="https://github.com/syofyanzuhad/sshelf" class="hover:text-indigo-500 transition">GitHub</a></li>
-                                <li><a href="https://ko-fi.com/syofyanzuhad" class="hover:text-indigo-500 transition">Support Us</a></li>
+                                <li><button @click="$dispatch('open-support-modal')" class="hover:text-indigo-500 transition">Support Us</button></li>
                             </ul>
-                        </div>
-                        <div>
+                        </div>                        <div>
                             <h4 class="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-widest mb-6">Legal</h4>
                             <ul class="space-y-4 text-sm text-gray-500">
                                 <li><a href="#" class="hover:text-indigo-500 transition">Privacy Policy</a></li>

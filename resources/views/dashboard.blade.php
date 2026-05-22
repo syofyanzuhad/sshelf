@@ -20,9 +20,9 @@
                         <p class="text-sm text-indigo-100">Support the project and help keep it open-source.</p>
                     </div>
                 </div>
-                <a href="https://ko-fi.com/syofyanzuhad" target="_blank" class="bg-white text-indigo-600 px-4 py-2 rounded-lg text-sm font-bold hover:bg-indigo-50 transition shrink-0">
-                    Buy me a coffee
-                </a>
+                <button @click="$dispatch('open-support-modal')" class="bg-white text-indigo-600 px-4 py-2 rounded-lg text-sm font-bold hover:bg-indigo-50 transition shrink-0">
+                    Support the Project
+                </button>
             </div>
 
             <livewire:servers.server-list />

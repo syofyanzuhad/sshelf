@@ -35,6 +35,8 @@
             </main>
         </div>
 
+        <x-home.support-modal />
+
         @livewireScripts
     </body>
 </html>
