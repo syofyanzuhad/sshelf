@@ -1,4 +1,4 @@
-<section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+<section class="relative z-10 max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
     <div class="text-center mb-16">
         <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">Security by Design</h2>
         <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Your credentials are protected by multiple layers of encryption and isolation.</p>

@@ -1,4 +1,4 @@
-            <nav class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex justify-between items-center">
+            <nav class="relative z-20 max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex justify-between items-center">
                 <a href="/" class="flex items-center space-x-3 group">
                     <div class="bg-indigo-600 p-1.5 rounded-lg shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

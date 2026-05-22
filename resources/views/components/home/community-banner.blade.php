@@ -1,4 +1,4 @@
-<section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+<section class="relative z-10 max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
     <div class="relative rounded-[2.5rem] p-12 overflow-hidden text-center group">
         <!-- Animated Gradient Background -->
         <div class="absolute inset-0 bg-gradient-to-br from-indigo-600 via-indigo-900 to-blue-900 opacity-90"></div>
