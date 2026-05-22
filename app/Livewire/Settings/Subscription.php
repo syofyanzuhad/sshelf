@@ -15,7 +15,7 @@ class Subscription extends Component
     {
         $user = auth()->user();
         $owner = $user->owner();
-        
+
         $plans = [
             Plan::Free->value => [
                 'name' => 'Gratis',
@@ -59,7 +59,7 @@ class Subscription extends Component
             'owner' => $owner,
             'plans' => $plans,
             'stats' => $stats,
-        ]);
+        ])->layout('layouts.app');
     }
 
     /**
