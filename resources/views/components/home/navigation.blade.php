@@ -11,30 +11,26 @@
                     </div>
                 </a>
 
-                <div class="hidden lg:flex items-center space-x-12">
+                <div class="hidden lg:flex items-center space-x-10">
                     <a href="{{ route('features') }}" class="text-xs font-bold {{ request()->routeIs('features') ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-gray-400' }} hover:text-indigo-600 dark:hover:text-indigo-400 transition uppercase tracking-[0.2em]">Features</a>
                     <a href="{{ route('compare') }}" class="text-xs font-bold {{ request()->routeIs('compare') ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-gray-400' }} hover:text-indigo-600 dark:hover:text-indigo-400 transition uppercase tracking-[0.2em]">Compare</a>
-                    <div class="h-4 w-px bg-gray-200 dark:bg-gray-800"></div>
-                    <x-github-link class="text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition uppercase tracking-[0.2em]" />
+                    <a href="https://ko-fi.com/syofyanzuhad" target="_blank" class="text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-pink-500 transition uppercase tracking-[0.2em]">Support</a>
                 </div>
 
                 <div class="flex items-center space-x-6">
-                    <div class="hidden sm:flex items-center space-x-4 border-r border-gray-200 dark:border-gray-800 pr-6 mr-2">
+                    <div class="hidden lg:flex items-center space-x-6 border-r border-gray-200 dark:border-gray-800 pr-6">
+                        <x-github-link class="text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition uppercase tracking-[0.2em]" />
                         <x-theme-toggle />
-                        <a href="https://ko-fi.com/syofyanzuhad" target="_blank" class="flex items-center space-x-2 text-xs font-bold text-pink-600 dark:text-pink-400 hover:text-pink-500 transition uppercase tracking-widest">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                            </svg>
-                            <span>Support</span>
-                        </a>
                     </div>
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="text-sm font-bold text-gray-900 dark:text-white hover:text-indigo-600 transition uppercase tracking-widest">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm font-bold text-gray-500 dark:text-gray-400 hover:text-indigo-600 transition uppercase tracking-widest">Log in</a>
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="hidden md:block bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition shadow-lg shadow-indigo-500/20 active:scale-95">Get Started</a>
-                        @endif
-                    @endauth
+                    <div class="flex items-center space-x-4">
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="text-sm font-bold text-gray-900 dark:text-white hover:text-indigo-600 transition uppercase tracking-widest">Dashboard</a>
+                        @else
+                            <a href="{{ route('login') }}" class="text-sm font-bold text-gray-500 dark:text-gray-400 hover:text-indigo-600 transition uppercase tracking-widest">Log in</a>
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="hidden md:block bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition shadow-lg shadow-indigo-500/20 active:scale-95">Get Started</a>
+                            @endif
+                        @endauth
+                    </div>
                 </div>
             </nav>
