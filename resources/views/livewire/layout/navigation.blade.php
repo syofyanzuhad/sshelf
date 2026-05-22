@@ -54,6 +54,12 @@ new class extends Component
                         {{ __('Users') }}
                     </x-nav-link>
                     @endcan
+                    <button @click="$dispatch('open-support-modal')" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-red-500 hover:text-red-600 transition duration-150 ease-in-out focus:outline-none">
+                        <svg class="w-4 h-4 mr-1.5 fill-current" viewBox="0 0 24 24">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                        {{ __('Support') }}
+                    </button>
                 </div>
             </div>
 
@@ -127,6 +133,12 @@ new class extends Component
                 {{ __('Users') }}
             </x-responsive-nav-link>
             @endcan
+            <button @click="$dispatch('open-support-modal')" class="flex w-full items-center pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-medium text-red-500 hover:text-red-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-150 ease-in-out focus:outline-none">
+                <svg class="w-4 h-4 mr-3 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+                {{ __('Support') }}
+            </button>
         </div>
 
         <!-- Responsive Settings Options -->
