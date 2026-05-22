@@ -1,17 +1,36 @@
-<section id="pricing" class="py-24 bg-gray-50 dark:bg-gray-900/50 transition-colors">
+<section id="pricing" class="py-24 bg-gray-50 dark:bg-gray-900/50 transition-colors" x-data="{ currency: 'IDR' }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
+        <div class="text-center mb-8">
             <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white mb-4">Pilih Paket Sesuai Kebutuhan Anda</h2>
-            <p class="text-lg text-gray-600 dark:text-gray-400">Harga terjangkau untuk pengelolaan infrastruktur yang lebih aman dan profesional.</p>
+            <p class="text-lg text-gray-600 dark:text-gray-400 mb-8">Harga terjangkau untuk pengelolaan infrastruktur yang lebih aman dan profesional.</p>
+            
+            <!-- Currency Toggle -->
+            <div class="flex items-center justify-center space-x-4 mb-12">
+                <span :class="{ 'text-gray-900 dark:text-white font-bold': currency === 'IDR', 'text-gray-500': currency !== 'IDR' }" class="text-sm transition-colors cursor-pointer" @click="currency = 'IDR'">IDR (Rp)</span>
+                <button 
+                    @click="currency = currency === 'IDR' ? 'USD' : 'IDR'" 
+                    class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none bg-gray-200 dark:bg-gray-700"
+                    role="switch"
+                >
+                    <span 
+                        aria-hidden="true" 
+                        :class="currency === 'USD' ? 'translate-x-5' : 'translate-x-0'"
+                        class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                    ></span>
+                </button>
+                <span :class="{ 'text-gray-900 dark:text-white font-bold': currency === 'USD', 'text-gray-500': currency !== 'USD' }" class="text-sm transition-colors cursor-pointer" @click="currency = 'USD'">USD ($)</span>
+            </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
             <!-- Starter Plan -->
             <div class="flex flex-col p-8 bg-white dark:bg-gray-800 rounded-3xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-xl transition-all duration-300">
                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Gratis</h3>
                 <p class="text-gray-500 dark:text-gray-400 text-sm mb-6">Cocok untuk penggunaan pribadi & hobi.</p>
                 <div class="text-4xl font-extrabold text-gray-900 dark:text-white mb-6">
-                    Rp 0 <span class="text-lg font-normal text-gray-500">/selamanya</span>
+                    <span x-show="currency === 'IDR'">Rp 0</span>
+                    <span x-show="currency === 'USD'">$0</span>
+                    <span class="text-lg font-normal text-gray-500">/selamanya</span>
                 </div>
                 <ul class="space-y-4 mb-8 flex-1">
                     <li class="flex items-center text-gray-600 dark:text-gray-300">
@@ -44,7 +63,9 @@
                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Pro</h3>
                 <p class="text-gray-500 dark:text-gray-400 text-sm mb-6">Untuk profesional dengan banyak server.</p>
                 <div class="text-4xl font-extrabold text-gray-900 dark:text-white mb-6">
-                    Rp 49.000 <span class="text-lg font-normal text-gray-500">/bulan</span>
+                    <span x-show="currency === 'IDR'">Rp 49.000</span>
+                    <span x-show="currency === 'USD'">$4</span>
+                    <span class="text-lg font-normal text-gray-500">/bulan</span>
                 </div>
                 <ul class="space-y-4 mb-8 flex-1">
                     <li class="flex items-center text-gray-600 dark:text-gray-300">
@@ -74,7 +95,9 @@
                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Bisnis</h3>
                 <p class="text-gray-500 dark:text-gray-400 text-sm mb-6">Solusi lengkap untuk tim & perusahaan.</p>
                 <div class="text-4xl font-extrabold text-gray-900 dark:text-white mb-6">
-                    Rp 149.000 <span class="text-lg font-normal text-gray-500">/bulan</span>
+                    <span x-show="currency === 'IDR'">Rp 149.000</span>
+                    <span x-show="currency === 'USD'">$12</span>
+                    <span class="text-lg font-normal text-gray-500">/bulan</span>
                 </div>
                 <ul class="space-y-4 mb-8 flex-1">
                     <li class="flex items-center text-gray-600 dark:text-gray-300">
