@@ -24,5 +24,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('viewPulse', function (User $user) {
             return $user->id === 1;
         });
+
+       Gate::deine('viewTelescope', function (User $user) {
+            return $user->id === 1;
+       });
     }
 }
