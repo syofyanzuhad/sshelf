@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use App\Traits\BelongsToTenant;
+use Database\Factories\QuickCommandFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class QuickCommand extends Model
 {
-    use BelongsToTenant;
+    /** @use HasFactory<QuickCommandFactory> */
+    use BelongsToTenant, HasFactory;
 
     protected $fillable = [
         'user_id',
