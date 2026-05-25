@@ -18,22 +18,40 @@ class Subscription extends Component
 
         $plans = [
             Plan::Free->value => [
-                'name' => 'Gratis',
+                'name' => [
+                    'IDR' => 'Gratis',
+                    'USD' => 'Free',
+                ],
                 'price' => 'Rp 0',
                 'price_usd' => '$0',
-                'features' => ['3 Server', '1 SSH Key', '0 Team Members'],
+                'features' => [
+                    'IDR' => ['3 Server', '1 SSH Key', '0 Anggota Tim'],
+                    'USD' => ['3 Servers', '1 SSH Key', '0 Team Members'],
+                ],
             ],
             Plan::Pro->value => [
-                'name' => 'Pro',
+                'name' => [
+                    'IDR' => 'Pro',
+                    'USD' => 'Pro',
+                ],
                 'price' => 'Rp 49.000',
                 'price_usd' => '$4',
-                'features' => ['20 Server', '5 SSH Keys', '2 Team Members'],
+                'features' => [
+                    'IDR' => ['20 Server', '5 SSH Keys', '2 Anggota Tim'],
+                    'USD' => ['20 Servers', '5 SSH Keys', '2 Team Members'],
+                ],
             ],
             Plan::Business->value => [
-                'name' => 'Bisnis',
+                'name' => [
+                    'IDR' => 'Bisnis',
+                    'USD' => 'Business',
+                ],
                 'price' => 'Rp 149.000',
                 'price_usd' => '$12',
-                'features' => ['Server Tanpa Batas', 'SSH Keys Tanpa Batas', 'Tim Tanpa Batas'],
+                'features' => [
+                    'IDR' => ['Server Tanpa Batas', 'SSH Keys Tanpa Batas', 'Tim Tanpa Batas'],
+                    'USD' => ['Unlimited Servers', 'Unlimited SSH Keys', 'Unlimited Team'],
+                ],
             ],
         ];
 
@@ -41,17 +59,26 @@ class Subscription extends Component
             'servers' => [
                 'current' => $owner->servers()->count(),
                 'limit' => $owner->plan->limits()['servers'],
-                'label' => 'Server Terkelola',
+                'label' => [
+                    'IDR' => 'Server Terkelola',
+                    'USD' => 'Managed Servers',
+                ],
             ],
             'ssh_keys' => [
                 'current' => $owner->sshKeys()->count(),
                 'limit' => $owner->plan->limits()['ssh_keys'],
-                'label' => 'SSH Keys',
+                'label' => [
+                    'IDR' => 'SSH Keys',
+                    'USD' => 'SSH Keys',
+                ],
             ],
             'members' => [
                 'current' => $owner->members()->count(),
                 'limit' => $owner->plan->limits()['members'],
-                'label' => 'Anggota Tim',
+                'label' => [
+                    'IDR' => 'Anggota Tim',
+                    'USD' => 'Team Members',
+                ],
             ],
         ];
 
