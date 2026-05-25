@@ -16,7 +16,7 @@
                     Sshelf is the secure home for your server credentials. Manage multiple environments, audit connections, and access a real-time terminal directly from your browser.
                 </p>
 
-                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-24">
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16">
                     @auth
                         <a href="{{ url('/dashboard') }}" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-4 rounded-2xl font-bold text-lg shadow-2xl shadow-indigo-500/40 transition transform hover:-translate-y-1 active:scale-95">
                             Go to Dashboard
@@ -30,6 +30,17 @@
                         </a>
                     @endauth
                 </div>
+
+                @if(config('sshelf.mode') === 'saas')
+                    <div class="flex justify-center items-center space-x-4 mb-24">
+                        <a href="https://smollaunch.com" target="_blank" rel="noopener" class="dark:hidden opacity-80 hover:opacity-100 transition duration-300">
+                            <img src="https://smollaunch.com/badges/featured.svg" alt="Featured on Smol Launch" loading="lazy" width="200" height="48" />
+                        </a>
+                        <a href="https://smollaunch.com" target="_blank" rel="noopener" class="hidden dark:block opacity-80 hover:opacity-100 transition duration-300">
+                            <img src="https://smollaunch.com/badges/featured-dark.svg" alt="Featured on Smol Launch" loading="lazy" width="200" height="48" />
+                        </a>
+                    </div>
+                @endif
 
                 <!-- Preview Mockup (Terminal) -->
                 <div class="relative group">
