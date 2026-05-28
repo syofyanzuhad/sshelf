@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Events\TerminalOutput;
+use App\Events\TerminalStatusUpdated;
 use App\Models\ConnectionLog;
 use App\Models\Server;
 use App\Services\SshShellService;
@@ -20,7 +21,7 @@ class SshTerminalCommand extends Command
         $serverId = $this->argument('serverId');
         $logId = $this->option('log-id');
         $log = $logId ? ConnectionLog::find($logId) : null;
-        
+
         // Single instance check per server
         $lockKey = "server.{$serverId}.lock";
         if (! Cache::add($lockKey, true, now()->addMinutes(10))) {
@@ -33,15 +34,21 @@ class SshTerminalCommand extends Command
         try {
             $server = Server::findOrFail($serverId);
 
+            TerminalStatusUpdated::dispatch($serverId, 'connecting');
+
             if (! $sshShellService->openShell($server)) {
+                TerminalStatusUpdated::dispatch($serverId, 'failed', 'Authentication failed or server unreachable.');
                 if ($log) {
                     $log->update([
                         'status' => 'failed',
                         'error' => 'Authentication failed or server unreachable.',
                     ]);
                 }
+
                 return;
             }
+
+            TerminalStatusUpdated::dispatch($serverId, 'connected');
 
             if ($log) {
                 $log->update([
@@ -53,14 +60,14 @@ class SshTerminalCommand extends Command
             $inputKey = "server.{$serverId}.input";
             $refreshKey = "server.{$serverId}.refresh";
             $heartbeatKey = "server.{$serverId}.last_heartbeat";
-            $buffer = "";
+            $buffer = '';
 
             while ($sshShellService->isConnected()) {
                 // Read from SSH
                 $output = $sshShellService->read();
                 if ($output) {
                     TerminalOutput::dispatch($serverId, $output);
-                    
+
                     // Keep last 2000 chars in buffer for new connects
                     $buffer .= $output;
                     if (strlen($buffer) > 2000) {
@@ -73,6 +80,8 @@ class SshTerminalCommand extends Command
                     if ($buffer) {
                         // Send buffer to the new client
                         TerminalOutput::dispatch($serverId, $buffer);
+                        // Also send current status
+                        TerminalStatusUpdated::dispatch($serverId, 'connected');
                     }
                 }
 
@@ -96,6 +105,7 @@ class SshTerminalCommand extends Command
                 usleep(10000); // 10ms
             }
         } catch (\Exception $e) {
+            TerminalStatusUpdated::dispatch($serverId, 'failed', $e->getMessage());
             if ($log) {
                 $log->update([
                     'status' => 'failed',
@@ -103,6 +113,7 @@ class SshTerminalCommand extends Command
                 ]);
             }
         } finally {
+            TerminalStatusUpdated::dispatch($serverId, 'disconnected');
             if ($log) {
                 $log->update([
                     'status' => $log->status === 'failed' ? 'failed' : 'disconnected',

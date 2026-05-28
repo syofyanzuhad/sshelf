@@ -40,16 +40,17 @@
                         </div>
                     @endif
 
-                    <div id="status" class="text-sm text-green-500 shrink-0">Connected</div>
+                    <div id="status" class="text-sm text-yellow-500 shrink-0">Connecting...</div>
                 </div>
             </div>
 
             <div id="terminal" class="h-[70vh] sm:h-[600px] bg-black p-2" wire:ignore></div>
         </div>
     </div>
-...
+
     @script
     <script>
+        const statusEl = document.getElementById('status');
         const term = new window.Terminal({
             cursorBlink: true,
             theme: {
@@ -74,6 +75,26 @@
         window.Echo.private(`server.{{ $server->id }}`)
             .listen('TerminalOutput', (e) => {
                 term.write(e.output);
+            })
+            .listen('TerminalStatusUpdated', (e) => {
+                statusEl.innerText = e.status.charAt(0).toUpperCase() + e.status.slice(1);
+                
+                // Update classes based on status
+                statusEl.classList.remove('text-green-500', 'text-red-500', 'text-yellow-500', 'text-gray-500');
+                
+                if (e.status === 'connected') {
+                    statusEl.classList.add('text-green-500');
+                } else if (e.status === 'failed') {
+                    statusEl.classList.add('text-red-500');
+                    if (e.message) {
+                        term.writeln('\r\n\x1b[31mError: ' + e.message + '\x1b[0m');
+                    }
+                } else if (e.status === 'disconnected') {
+                    statusEl.classList.add('text-gray-500');
+                    term.writeln('\r\n\x1b[33mSession disconnected.\x1b[0m');
+                } else {
+                    statusEl.classList.add('text-yellow-500');
+                }
             });
 
         window.addEventListener('resize', () => fitAddon.fit());
