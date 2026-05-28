@@ -150,6 +150,9 @@
         setInterval(() => {
             $wire.heartbeat();
         }, 10000);
+
+        // Baseline message
+        term.writeln('\x1b[33m→ Initializing terminal session...\x1b[0m');
     </script>
     @endscript
 </div>
