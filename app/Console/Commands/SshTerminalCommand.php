@@ -46,13 +46,13 @@ class SshTerminalCommand extends Command
             $progressBuffer = [];
             $onProgress = function ($message) use ($serverId, &$progressBuffer) {
                 $progressBuffer[] = $message;
-                TerminalStatusUpdated::dispatch($serverId, 'connecting', $message);
+                $this->safeDispatch(new TerminalStatusUpdated($serverId, 'connecting', $message));
             };
 
-            TerminalStatusUpdated::dispatch($serverId, 'connecting');
+            $this->safeDispatch(new TerminalStatusUpdated($serverId, 'connecting'));
 
             if (! $sshShellService->openShell($server, $onProgress)) {
-                TerminalStatusUpdated::dispatch($serverId, 'failed', 'Authentication failed or server unreachable.');
+                $this->safeDispatch(new TerminalStatusUpdated($serverId, 'failed', 'Authentication failed or server unreachable.'));
                 if ($log) {
                     $log->update([
                         'status' => 'failed',
@@ -63,7 +63,7 @@ class SshTerminalCommand extends Command
                 return;
             }
 
-            TerminalStatusUpdated::dispatch($serverId, 'connected');
+            $this->safeDispatch(new TerminalStatusUpdated($serverId, 'connected'));
 
             if ($log) {
                 $log->update([
@@ -82,16 +82,16 @@ class SshTerminalCommand extends Command
                 if (Cache::pull($refreshKey)) {
                     // Replay progress
                     foreach ($progressBuffer as $msg) {
-                        TerminalStatusUpdated::dispatch($serverId, 'connecting', $msg);
+                        $this->safeDispatch(new TerminalStatusUpdated($serverId, 'connecting', $msg));
                     }
 
                     if ($buffer) {
                         // Send buffer to the new client
-                        TerminalOutput::dispatch($serverId, $buffer);
+                        $this->safeDispatch(new TerminalOutput($serverId, $buffer));
                     }
 
                     // Also send current status
-                    TerminalStatusUpdated::dispatch($serverId, 'connected');
+                    $this->safeDispatch(new TerminalStatusUpdated($serverId, 'connected'));
                 }
 
                 // Read from SSH Shell (Output from server)
@@ -102,7 +102,7 @@ class SshTerminalCommand extends Command
                     if (strlen($buffer) > 102400) {
                         $buffer = substr($buffer, -102400);
                     }
-                    TerminalOutput::dispatch($serverId, $output);
+                    $this->safeDispatch(new TerminalOutput($serverId, $output));
                 }
 
                 // Read from Cache (Input from user)
@@ -121,11 +121,10 @@ class SshTerminalCommand extends Command
                 if (Cache::get("server.{$serverId}.status") === 'closed') {
                     break;
                 }
-
                 usleep(10000); // 10ms
             }
         } catch (\Exception $e) {
-            TerminalStatusUpdated::dispatch($serverId, 'failed', $e->getMessage());
+            $this->safeDispatch(new TerminalStatusUpdated($serverId, 'failed', $e->getMessage()));
             try {
                 if ($log) {
                     $log->update([
@@ -137,7 +136,7 @@ class SshTerminalCommand extends Command
                 \Log::error('Failed to update connection log to failed: '.$logException->getMessage());
             }
         } finally {
-            TerminalStatusUpdated::dispatch($serverId, 'disconnected');
+            $this->safeDispatch(new TerminalStatusUpdated($serverId, 'disconnected'));
 
             try {
                 if ($log) {
@@ -153,6 +152,18 @@ class SshTerminalCommand extends Command
             // Cleanup
             Cache::forget("server.{$serverId}.worker_pid");
             Cache::forget("server.{$serverId}.lock");
+        }
+    }
+
+    /**
+     * Dispatch an event safely, logging failures instead of crashing.
+     */
+    protected function safeDispatch($event): void
+    {
+        try {
+            event($event);
+        } catch (\Exception $e) {
+            \Log::warning('Broadcast failed: '.$e->getMessage());
         }
     }
 }

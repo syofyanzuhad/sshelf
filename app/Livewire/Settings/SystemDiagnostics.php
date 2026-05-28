@@ -136,12 +136,39 @@ class SystemDiagnostics extends Component
         $driver = config('broadcasting.default');
         $isRealtime = in_array($driver, ['reverb', 'pusher', 'soketi']);
 
+        if ($isRealtime) {
+            $connection = config("broadcasting.connections.$driver");
+            $host = $connection['options']['host'] ?? null;
+            $port = $connection['options']['port'] ?? ($connection['options']['scheme'] === 'https' ? 443 : 80);
+
+            if ($host) {
+                $fp = @fsockopen($host, $port, $errno, $errstr, 2);
+                if ($fp) {
+                    fclose($fp);
+
+                    return [
+                        'label' => 'Real-time Connection',
+                        'value' => ucfirst($driver).' (Connected)',
+                        'status' => 'success',
+                        'message' => "Successfully reached the $driver server at $host:$port.",
+                    ];
+                }
+
+                return [
+                    'label' => 'Real-time Connection',
+                    'value' => ucfirst($driver).' (Unreachable)',
+                    'status' => 'danger',
+                    'message' => "Could not reach $driver server at $host:$port. This will prevent terminal updates.",
+                ];
+            }
+        }
+
         return [
             'label' => 'Real-time Driver',
             'value' => ucfirst($driver),
             'status' => $isRealtime ? 'success' : 'warning',
             'message' => $isRealtime
-                ? 'Real-time terminal output is enabled.'
+                ? 'Driver is configured, but host is not defined.'
                 : 'Interactive terminal requires a WebSocket driver (e.g. Reverb).',
         ];
     }
