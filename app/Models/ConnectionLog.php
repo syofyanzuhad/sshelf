@@ -7,6 +7,7 @@ use Database\Factories\ConnectionLogFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Cache;
 
 class ConnectionLog extends Model
 {
@@ -37,5 +38,14 @@ class ConnectionLog extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function isActive(): bool
+    {
+        if ($this->status !== 'connected' || $this->disconnected_at) {
+            return false;
+        }
+
+        return Cache::has("server.{$this->server_id}.worker_pid");
     }
 }

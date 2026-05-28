@@ -79,9 +79,17 @@ class SshTerminalCommand extends Command
             $inputKey = "server.{$serverId}.input";
             $refreshKey = "server.{$serverId}.refresh";
             $heartbeatKey = "server.{$serverId}.last_heartbeat";
+            $lastCacheRefresh = now()->timestamp;
             $buffer = '';
 
             while ($sshShellService->isConnected()) {
+                // Periodic cache refresh (every 30 seconds) to keep keys alive
+                if (now()->timestamp - $lastCacheRefresh > 30) {
+                    Cache::put("server.{$serverId}.worker_pid", getmypid(), now()->addHour());
+                    Cache::put("server.{$serverId}.lock", true, now()->addMinutes(10));
+                    $lastCacheRefresh = now()->timestamp;
+                }
+
                 // Check if a new client requested a refresh
                 if (Cache::pull($refreshKey)) {
                     // Replay progress

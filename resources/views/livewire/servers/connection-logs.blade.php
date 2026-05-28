@@ -34,14 +34,20 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                     @if($log->connected_at && $log->disconnected_at)
                                         {{ $log->connected_at->diffForHumans($log->disconnected_at, true, true) }}
+                                    @elseif($log->isActive())
+                                        <span class="text-green-500 font-medium">Active</span>
                                     @elseif($log->connected_at)
-                                        <span class="text-green-500">Active</span>
+                                        <span class="text-gray-400 italic" title="Background worker is no longer reporting.">Orphaned</span>
                                     @else
                                         -
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                    @if($log->status === 'success')
+                                    @if($log->isActive())
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                            Connected
+                                        </span>
+                                    @elseif($log->status === 'success')
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
                                             Success
                                         </span>
@@ -81,7 +87,11 @@
                                 </div>
                             </div>
                             <div>
-                                @if($log->status === 'success')
+                                @if($log->isActive())
+                                    <span class="px-2 py-1 text-[10px] font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                        Connected
+                                    </span>
+                                @elseif($log->status === 'success')
                                     <span class="px-2 py-1 text-[10px] font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
                                         Success
                                     </span>
@@ -101,8 +111,10 @@
                             <span>
                                 @if($log->connected_at && $log->disconnected_at)
                                     {{ $log->connected_at->diffForHumans($log->disconnected_at, true, true) }}
+                                @elseif($log->isActive())
+                                    <span class="text-green-500 font-medium">Active</span>
                                 @elseif($log->connected_at)
-                                    <span class="text-green-500">Active</span>
+                                    <span class="text-gray-400 italic">Orphaned</span>
                                 @endif
                             </span>
                         </div>
