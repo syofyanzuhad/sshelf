@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Servers;
 
-use App\Models\Server;
 use App\Models\ConnectionLog;
+use App\Models\Server;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Process;
 use Livewire\Component;
@@ -34,9 +34,14 @@ class ServerTerminal extends Component
 
         // Attempt to start the background process using CLI PHP
         $php = config('app.php_binary', PHP_BINARY);
-        $artisan = base_path('artisan');
-        $command = "\"{$php}\" \"{$artisan}\" app:ssh-terminal {$this->server->id} --log-id={$log->id} > /dev/null 2>&1 &";
-        exec($command);
+
+        Process::path(base_path())->start([
+            $php,
+            'artisan',
+            'app:ssh-terminal',
+            (string) $this->server->id,
+            "--log-id={$log->id}",
+        ]);
     }
 
     public function heartbeat()
@@ -64,7 +69,7 @@ class ServerTerminal extends Component
     public function runCommand(string $command)
     {
         // Append a newline to the command so it executes immediately
-        $this->sendInput($command . "\n");
+        $this->sendInput($command."\n");
     }
 
     public function disconnect()

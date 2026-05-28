@@ -84,6 +84,17 @@ class SshTerminalCommand extends Command
                     }
                 }
 
+                // Read from SSH Shell (Output from server)
+                $output = $sshShellService->read();
+                if ($output) {
+                    $buffer .= $output;
+                    // Keep buffer from growing indefinitely (keep last 100KB)
+                    if (strlen($buffer) > 102400) {
+                        $buffer = substr($buffer, -102400);
+                    }
+                    TerminalOutput::dispatch($serverId, $output);
+                }
+
                 // Read from Cache (Input from user)
                 $input = Cache::pull($inputKey);
                 if ($input) {
