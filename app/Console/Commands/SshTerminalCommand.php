@@ -66,10 +66,14 @@ class SshTerminalCommand extends Command
             $this->safeDispatch(new TerminalStatusUpdated($serverId, 'connected'));
 
             if ($log) {
-                $log->update([
-                    'status' => 'connected',
-                    'connected_at' => now(),
-                ]);
+                try {
+                    $log->update([
+                        'status' => 'connected',
+                        'connected_at' => now(),
+                    ]);
+                } catch (\Exception $e) {
+                    \Log::error('Failed to update connection log to connected: '.$e->getMessage());
+                }
             }
 
             $inputKey = "server.{$serverId}.input";

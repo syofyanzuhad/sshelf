@@ -47,9 +47,31 @@ class ServerTerminal extends Component
 
             // Attempt to start the background process using CLI PHP
             $php = config('app.php_binary', PHP_BINARY);
+
+            // If we are in a web context, PHP_BINARY might point to php-fpm.
+            // We try to find the CLI version if possible.
+            if (str_contains($php, 'fpm')) {
+                $php = str_replace('fpm', 'cli', $php);
+                if (! file_exists($php)) {
+                    $php = 'php'; // Fallback to PATH
+                }
+            }
+
             $artisan = base_path('artisan');
             $command = "\"{$php}\" \"{$artisan}\" app:ssh-terminal {$this->server->id} --log-id={$log->id} > /dev/null 2>&1 &";
-            exec($command);
+
+            try {
+                exec($command, $output, $resultCode);
+                if ($resultCode !== 0) {
+                    \Log::warning("Background worker failed to start with code {$resultCode} for server {$this->server->id}");
+                }
+            } catch (\Exception $e) {
+                \Log::error('Failed to spawn background worker: '.$e->getMessage());
+                $log->update([
+                    'status' => 'failed',
+                    'error' => 'Failed to spawn background worker: '.$e->getMessage(),
+                ]);
+            }
         }
     }
 
