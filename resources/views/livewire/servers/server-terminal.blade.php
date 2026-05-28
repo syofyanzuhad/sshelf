@@ -41,6 +41,11 @@
                     @endif
 
                     <div id="status" class="text-sm text-yellow-500 shrink-0">Connecting...</div>
+                    
+                    <div class="flex items-center space-x-2 border-l border-gray-800 pl-3 ml-1">
+                        <div id="reverb-dot" class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                        <span class="text-[10px] font-bold uppercase tracking-tighter text-gray-600 dark:text-gray-500">Socket</span>
+                    </div>
                 </div>
             </div>
 
@@ -51,6 +56,28 @@
     @script
     <script>
         const statusEl = document.getElementById('status');
+        const reverbDot = document.getElementById('reverb-dot');
+        
+        // Listen for Reverb connection changes
+        if (window.Echo && window.Echo.connector.pusher) {
+            const updateReverbStatus = (state) => {
+                reverbDot.classList.remove('bg-green-500', 'bg-red-500', 'bg-yellow-500', 'animate-pulse');
+                
+                if (state.current === 'connected') {
+                    reverbDot.classList.add('bg-green-500');
+                } else if (state.current === 'connecting') {
+                    reverbDot.classList.add('bg-yellow-500', 'animate-pulse');
+                } else {
+                    reverbDot.classList.add('bg-red-500');
+                }
+            };
+
+            window.Echo.connector.pusher.connection.bind('state_change', updateReverbStatus);
+            
+            // Initial state
+            updateReverbStatus({ current: window.Echo.connector.pusher.connection.state });
+        }
+
         const term = new window.Terminal({
             cursorBlink: true,
             theme: {
