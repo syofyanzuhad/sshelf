@@ -3,7 +3,7 @@
         <div class="bg-gray-900 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-4 border-b border-gray-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                 <div class="flex items-center space-x-4 w-full sm:w-auto">
-                    <button wire:click="disconnect" class="text-gray-400 hover:text-white shrink-0">
+                    <button wire:click="disconnect" wire:confirm="Are you sure you want to disconnect and terminate this SSH session?" class="text-gray-400 hover:text-white shrink-0">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
@@ -139,6 +139,12 @@
             });
 
         window.addEventListener('resize', () => fitAddon.fit());
+
+        // Prevent accidental navigation/tab close
+        window.addEventListener('beforeunload', (e) => {
+            e.preventDefault();
+            e.returnValue = '';
+        });
         
         // Heartbeat to keep worker alive
         setInterval(() => {
