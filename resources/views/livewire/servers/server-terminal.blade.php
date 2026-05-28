@@ -109,7 +109,12 @@
                 // Update classes based on status
                 statusEl.classList.remove('text-green-500', 'text-red-500', 'text-yellow-500', 'text-gray-500');
                 
-                if (e.status === 'connected') {
+                if (e.status === 'connecting') {
+                    statusEl.classList.add('text-yellow-500');
+                    if (e.message) {
+                        term.writeln('\x1b[33m→ ' + e.message + '\x1b[0m');
+                    }
+                } else if (e.status === 'connected') {
                     statusEl.classList.add('text-green-500');
                 } else if (e.status === 'failed') {
                     statusEl.classList.add('text-red-500');

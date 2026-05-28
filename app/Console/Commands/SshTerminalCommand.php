@@ -36,7 +36,11 @@ class SshTerminalCommand extends Command
 
             TerminalStatusUpdated::dispatch($serverId, 'connecting');
 
-            if (! $sshShellService->openShell($server)) {
+            $onProgress = function ($message) use ($serverId) {
+                TerminalStatusUpdated::dispatch($serverId, 'connecting', $message);
+            };
+
+            if (! $sshShellService->openShell($server, $onProgress)) {
                 TerminalStatusUpdated::dispatch($serverId, 'failed', 'Authentication failed or server unreachable.');
                 if ($log) {
                     $log->update([
