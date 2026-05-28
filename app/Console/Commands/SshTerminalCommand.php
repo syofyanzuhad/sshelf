@@ -117,19 +117,28 @@ class SshTerminalCommand extends Command
             }
         } catch (\Exception $e) {
             TerminalStatusUpdated::dispatch($serverId, 'failed', $e->getMessage());
-            if ($log) {
-                $log->update([
-                    'status' => 'failed',
-                    'error' => $e->getMessage(),
-                ]);
+            try {
+                if ($log) {
+                    $log->update([
+                        'status' => 'failed',
+                        'error' => $e->getMessage(),
+                    ]);
+                }
+            } catch (\Exception $logException) {
+                \Log::error('Failed to update connection log to failed: '.$logException->getMessage());
             }
         } finally {
             TerminalStatusUpdated::dispatch($serverId, 'disconnected');
-            if ($log) {
-                $log->update([
-                    'status' => $log->status === 'failed' ? 'failed' : 'disconnected',
-                    'disconnected_at' => now(),
-                ]);
+
+            try {
+                if ($log) {
+                    $log->update([
+                        'status' => $log->status === 'failed' ? 'failed' : 'disconnected',
+                        'disconnected_at' => now(),
+                    ]);
+                }
+            } catch (\Exception $logException) {
+                \Log::error('Failed to update connection log to disconnected: '.$logException->getMessage());
             }
 
             // Cleanup

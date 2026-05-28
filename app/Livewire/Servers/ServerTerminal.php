@@ -29,14 +29,24 @@ class ServerTerminal extends Component
         // Signal open status and heartbeat
         $this->heartbeat();
 
-        // Tell existing worker to refresh the screen if it's already running
-        Cache::put("server.{$this->server->id}.refresh", true, now()->addMinutes(1));
+        // Check if worker is already running
+        $isWorkerRunning = Cache::has("server.{$this->server->id}.worker_pid");
 
-        // Attempt to start the background process using CLI PHP
-        $php = config('app.php_binary', PHP_BINARY);
-        $artisan = base_path('artisan');
-        $command = "\"{$php}\" \"{$artisan}\" app:ssh-terminal {$this->server->id} --log-id={$log->id} > /dev/null 2>&1 &";
-        exec($command);
+        if ($isWorkerRunning) {
+            $log->update([
+                'status' => 'connected',
+                'connected_at' => now(),
+            ]);
+
+            // Tell existing worker to refresh the screen
+            Cache::put("server.{$this->server->id}.refresh", true, now()->addMinutes(1));
+        } else {
+            // Attempt to start the background process using CLI PHP
+            $php = config('app.php_binary', PHP_BINARY);
+            $artisan = base_path('artisan');
+            $command = "\"{$php}\" \"{$artisan}\" app:ssh-terminal {$this->server->id} --log-id={$log->id} > /dev/null 2>&1 &";
+            exec($command);
+        }
     }
 
     public function heartbeat()
