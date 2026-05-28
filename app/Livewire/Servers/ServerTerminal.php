@@ -45,6 +45,11 @@ class ServerTerminal extends Component
         Cache::put("server.{$this->server->id}.last_heartbeat", now()->timestamp, now()->addHour());
     }
 
+    public function refresh()
+    {
+        Cache::put("server.{$this->server->id}.refresh", true, now()->addMinutes(1));
+    }
+
     protected function isProcessRunning($pid)
     {
         return (bool) shell_exec("ps -p {$pid} | grep {$pid}");

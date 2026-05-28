@@ -72,9 +72,18 @@
                 }
             };
 
-            window.Echo.connector.pusher.connection.bind('state_change', updateReverbStatus);
+            window.Echo.connector.pusher.connection.bind('state_change', (state) => {
+                updateReverbStatus(state);
+                if (state.current === 'connected') {
+                    // Request current status and buffer from worker
+                    $wire.refresh();
+                }
+            });
             
-            // Initial state
+            // Initial state check
+            if (window.Echo.connector.pusher.connection.state === 'connected') {
+                $wire.refresh();
+            }
             updateReverbStatus({ current: window.Echo.connector.pusher.connection.state });
         }
 
@@ -135,8 +144,6 @@
         setInterval(() => {
             $wire.heartbeat();
         }, 10000);
-
-        term.writeln('Connecting to session...');
     </script>
     @endscript
 </div>

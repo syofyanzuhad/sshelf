@@ -34,11 +34,13 @@ class SshTerminalCommand extends Command
         try {
             $server = Server::findOrFail($serverId);
 
-            TerminalStatusUpdated::dispatch($serverId, 'connecting');
-
-            $onProgress = function ($message) use ($serverId) {
+            $progressBuffer = [];
+            $onProgress = function ($message) use ($serverId, &$progressBuffer) {
+                $progressBuffer[] = $message;
                 TerminalStatusUpdated::dispatch($serverId, 'connecting', $message);
             };
+
+            TerminalStatusUpdated::dispatch($serverId, 'connecting');
 
             if (! $sshShellService->openShell($server, $onProgress)) {
                 TerminalStatusUpdated::dispatch($serverId, 'failed', 'Authentication failed or server unreachable.');
@@ -67,20 +69,13 @@ class SshTerminalCommand extends Command
             $buffer = '';
 
             while ($sshShellService->isConnected()) {
-                // Read from SSH
-                $output = $sshShellService->read();
-                if ($output) {
-                    TerminalOutput::dispatch($serverId, $output);
-
-                    // Keep last 2000 chars in buffer for new connects
-                    $buffer .= $output;
-                    if (strlen($buffer) > 2000) {
-                        $buffer = substr($buffer, -2000);
-                    }
-                }
-
                 // Check if a new client requested a refresh
                 if (Cache::pull($refreshKey)) {
+                    // Replay progress
+                    foreach ($progressBuffer as $msg) {
+                        TerminalStatusUpdated::dispatch($serverId, 'connecting', $msg);
+                    }
+
                     if ($buffer) {
                         // Send buffer to the new client
                         TerminalOutput::dispatch($serverId, $buffer);
