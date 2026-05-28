@@ -34,14 +34,9 @@ class ServerTerminal extends Component
 
         // Attempt to start the background process using CLI PHP
         $php = config('app.php_binary', PHP_BINARY);
-
-        Process::path(base_path())->start([
-            $php,
-            'artisan',
-            'app:ssh-terminal',
-            (string) $this->server->id,
-            "--log-id={$log->id}",
-        ]);
+        $artisan = base_path('artisan');
+        $command = "\"{$php}\" \"{$artisan}\" app:ssh-terminal {$this->server->id} --log-id={$log->id} > /dev/null 2>&1 &";
+        exec($command);
     }
 
     public function heartbeat()

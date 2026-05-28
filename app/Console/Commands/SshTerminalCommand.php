@@ -79,9 +79,10 @@ class SshTerminalCommand extends Command
                     if ($buffer) {
                         // Send buffer to the new client
                         TerminalOutput::dispatch($serverId, $buffer);
-                        // Also send current status
-                        TerminalStatusUpdated::dispatch($serverId, 'connected');
                     }
+
+                    // Also send current status
+                    TerminalStatusUpdated::dispatch($serverId, 'connected');
                 }
 
                 // Read from SSH Shell (Output from server)
