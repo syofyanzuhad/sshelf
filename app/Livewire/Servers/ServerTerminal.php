@@ -29,10 +29,11 @@ class ServerTerminal extends Component
         // Signal open status and heartbeat
         $this->heartbeat();
 
-        // Check if worker is already running
+        // Check if worker is already running or starting
         $isWorkerRunning = Cache::has("server.{$this->server->id}.worker_pid");
+        $isWorkerStarting = Cache::has("server.{$this->server->id}.starting");
 
-        if ($isWorkerRunning) {
+        if ($isWorkerRunning || $isWorkerStarting) {
             $log->update([
                 'status' => 'connected',
                 'connected_at' => now(),
@@ -41,6 +42,9 @@ class ServerTerminal extends Component
             // Tell existing worker to refresh the screen
             Cache::put("server.{$this->server->id}.refresh", true, now()->addMinutes(1));
         } else {
+            // Mark as starting to prevent race conditions
+            Cache::put("server.{$this->server->id}.starting", true, now()->addSeconds(30));
+
             // Attempt to start the background process using CLI PHP
             $php = config('app.php_binary', PHP_BINARY);
             $artisan = base_path('artisan');

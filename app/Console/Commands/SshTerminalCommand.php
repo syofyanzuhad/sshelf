@@ -25,11 +25,20 @@ class SshTerminalCommand extends Command
         // Single instance check per server
         $lockKey = "server.{$serverId}.lock";
         if (! Cache::add($lockKey, true, now()->addMinutes(10))) {
+            if ($log) {
+                $log->update([
+                    'status' => 'failed',
+                    'error' => 'Another session is already active for this server.',
+                ]);
+            }
+            $this->error('Another session is already active.');
+
             return;
         }
 
         // Record PID so the web app can track us
         Cache::put("server.{$serverId}.worker_pid", getmypid(), now()->addHour());
+        Cache::forget("server.{$serverId}.starting");
 
         try {
             $server = Server::findOrFail($serverId);
