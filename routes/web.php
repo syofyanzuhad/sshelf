@@ -5,6 +5,8 @@ use App\Livewire\Servers\ServerTerminal;
 use App\Livewire\Settings\ApiTokens;
 use App\Livewire\Settings\QuickCommands;
 use App\Livewire\Settings\SshKeys;
+use App\Livewire\Settings\Subscription;
+use App\Livewire\Settings\SystemDiagnostics;
 use App\Livewire\Settings\Users;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +22,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('keys', SshKeys::class)->name('keys');
     Route::get('users', Users::class)->name('users');
     Route::get('tokens', ApiTokens::class)->name('tokens');
-    Route::get('subscription', \App\Livewire\Settings\Subscription::class)->name('subscription');
+    Route::get('diagnostics', SystemDiagnostics::class)->name('system.diagnostics');
+    Route::get('subscription', Subscription::class)->name('subscription');
 });
 
 Route::view('profile', 'profile')

@@ -96,6 +96,12 @@ new class extends Component
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
+                        @can('manage', App\Models\User::class)
+                        <x-dropdown-link :href="route('system.diagnostics')" wire:navigate>
+                            {{ __('Diagnostics') }}
+                        </x-dropdown-link>
+                        @endcan
+
                         <!-- Authentication -->
                         <button wire:click="logout" class="w-full text-start">
                             <x-dropdown-link>
@@ -169,6 +175,12 @@ new class extends Component
                 <x-responsive-nav-link :href="route('profile')" wire:navigate>
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
+
+                @can('manage', App\Models\User::class)
+                <x-responsive-nav-link :href="route('system.diagnostics')" wire:navigate>
+                    {{ __('Diagnostics') }}
+                </x-responsive-nav-link>
+                @endcan
 
                 <!-- Authentication -->
                 <button wire:click="logout" class="w-full text-start">
