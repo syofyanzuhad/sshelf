@@ -50,6 +50,50 @@
                     @endforeach
                 </div>
 
+                @if(count($terminalStatus) > 0)
+                    <div class="mt-12 border-t border-gray-200 dark:border-gray-700 pt-6">
+                        <h4 class="font-medium mb-4">{{ __('Active Terminal Processes') }}</h4>
+                        <div class="overflow-x-auto text-sm">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                                <thead>
+                                    <tr class="text-left text-gray-500 dark:text-gray-400">
+                                        <th class="pb-2">{{ __('Server') }}</th>
+                                        <th class="pb-2">{{ __('PID') }}</th>
+                                        <th class="pb-2">{{ __('Alive') }}</th>
+                                        <th class="pb-2">{{ __('Lock') }}</th>
+                                        <th class="pb-2">{{ __('Last Activity') }}</th>
+                                        <th class="pb-2 text-right">{{ __('Actions') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                                    @foreach($terminalStatus as $status)
+                                        <tr>
+                                            <td class="py-3 font-medium">{{ $status['name'] }}</td>
+                                            <td class="py-3">{{ $status['pid'] }}</td>
+                                            <td class="py-3">
+                                                <span @class([
+                                                    'px-2 py-0.5 rounded text-[10px] font-bold uppercase',
+                                                    'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-400' => $status['process_alive'] === 'Yes',
+                                                    'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-400' => $status['process_alive'] === 'No',
+                                                ])>
+                                                    {{ $status['process_alive'] }}
+                                                </span>
+                                            </td>
+                                            <td class="py-3">{{ $status['lock'] }}</td>
+                                            <td class="py-3 text-gray-500">{{ $status['last_heartbeat'] }}</td>
+                                            <td class="py-3 text-right">
+                                                <button wire:click="cleanupTerminal({{ $status['id'] }})" wire:confirm="This will force-clear the cache locks for this server. Proceed?" class="text-red-500 hover:text-red-700 font-medium">
+                                                    {{ __('Reset') }}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                @endif
+
                 <div class="mt-12 border-t border-gray-200 dark:border-gray-700 pt-6">
                     <h4 class="font-medium mb-4">{{ __('Common Fixes') }}</h4>
                     <ul class="space-y-4 text-sm">

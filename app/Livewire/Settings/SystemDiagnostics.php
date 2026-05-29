@@ -2,7 +2,10 @@
 
 namespace App\Livewire\Settings;
 
+use App\Models\Server;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -173,9 +176,60 @@ class SystemDiagnostics extends Component
         ];
     }
 
+    public function getTerminalStatus(): array
+    {
+        $servers = Server::all();
+        $status = [];
+
+        foreach ($servers as $server) {
+            $pid = Cache::get("server.{$server->id}.worker_pid");
+            $lock = Cache::get("server.{$server->id}.lock");
+            $starting = Cache::get("server.{$server->id}.starting");
+            $heartbeat = Cache::get("server.{$server->id}.last_heartbeat");
+
+            $isAlive = $pid && $this->isProcessRunning($pid);
+
+            if ($pid || $lock || $starting) {
+                $status[] = [
+                    'id' => $server->id,
+                    'name' => $server->name,
+                    'pid' => $pid ?? 'N/A',
+                    'process_alive' => $isAlive ? 'Yes' : 'No',
+                    'lock' => $lock ? 'Active' : 'Missing',
+                    'starting' => $starting ? 'Yes' : 'No',
+                    'last_heartbeat' => $heartbeat ? Carbon::createFromTimestamp($heartbeat)->diffForHumans() : 'N/A',
+                ];
+            }
+        }
+
+        return $status;
+    }
+
+    protected function isProcessRunning($pid): bool
+    {
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            return false;
+        }
+
+        return (bool) shell_exec("ps -p $pid | grep $pid");
+    }
+
+    public function cleanupTerminal(int $serverId)
+    {
+        Cache::forget("server.$serverId.worker_pid");
+        Cache::forget("server.$serverId.lock");
+        Cache::forget("server.$serverId.starting");
+        Cache::forget("server.$serverId.status");
+        Cache::forget("server.$serverId.refresh");
+        Cache::forget("server.$serverId.input");
+
+        $this->runDiagnostics();
+    }
+
     public function render()
     {
-        return view('livewire.settings.system-diagnostics')
-            ->layout('layouts.app');
+        return view('livewire.settings.system-diagnostics', [
+            'terminalStatus' => $this->getTerminalStatus(),
+        ])->layout('layouts.app');
     }
 }
