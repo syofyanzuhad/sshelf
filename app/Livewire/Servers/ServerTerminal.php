@@ -82,7 +82,7 @@ class ServerTerminal extends Component
     protected function spawnProxyWorker($logId)
     {
         try {
-            Http::withHeaders([
+            Http::acceptJson()->withHeaders([
                 'X-Internal-Token' => config('sshelf.engine.internal_token'),
             ])->post(config('sshelf.engine.proxy_url'), [
                 'server_id' => $this->server->id,
