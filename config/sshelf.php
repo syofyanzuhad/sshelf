@@ -47,4 +47,22 @@ return [
             ],
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Terminal Engine Proxy
+    |--------------------------------------------------------------------------
+    |
+    | When running on Laravel Cloud, you can proxy the background SSH worker
+    | to a self-hosted VPS.
+    |
+    */
+
+    'engine' => [
+        'mode' => env('SSHELF_ENGINE_MODE', 'local'), // 'local' or 'proxy'
+        'proxy_url' => env('SSHELF_ENGINE_PROXY_URL'), // e.g. https://your-vps.com/api/v1/internal/spawn-terminal
+        'internal_token' => env('SSHELF_INTERNAL_TOKEN'),
+    ],
+
+    'internal_token' => env('SSHELF_INTERNAL_TOKEN'),
 ];

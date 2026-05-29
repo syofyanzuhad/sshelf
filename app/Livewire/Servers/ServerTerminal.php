@@ -5,6 +5,7 @@ namespace App\Livewire\Servers;
 use App\Models\ConnectionLog;
 use App\Models\Server;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -46,33 +47,50 @@ class ServerTerminal extends Component
             // Mark as starting to prevent race conditions
             Cache::put("server.{$this->server->id}.starting", true, now()->addSeconds(30));
 
-            // Attempt to start the background process using CLI PHP
-            $php = config('app.php_binary', PHP_BINARY);
-
-            // If we are in a web context, PHP_BINARY might point to php-fpm.
-            // We try to find the CLI version if possible.
-            if (str_contains($php, 'fpm')) {
-                $php = str_replace('fpm', 'cli', $php);
-                if (! file_exists($php)) {
-                    $php = 'php'; // Fallback to PATH
-                }
+            if (config('sshelf.engine.mode') === 'proxy' && config('sshelf.engine.proxy_url')) {
+                $this->spawnProxyWorker($log->id);
+            } else {
+                $this->spawnLocalWorker($log->id);
             }
+        }
+    }
 
-            $artisan = base_path('artisan');
-            $command = "\"{$php}\" \"{$artisan}\" app:ssh-terminal {$this->server->id} --log-id={$log->id} > /dev/null 2>&1 &";
+    protected function spawnLocalWorker($logId)
+    {
+        $php = config('app.php_binary', PHP_BINARY);
 
-            try {
-                exec($command, $output, $resultCode);
-                if ($resultCode !== 0) {
-                    \Log::warning("Background worker failed to start with code {$resultCode} for server {$this->server->id}");
-                }
-            } catch (\Exception $e) {
-                \Log::error('Failed to spawn background worker: '.$e->getMessage());
-                $log->update([
-                    'status' => 'failed',
-                    'error' => 'Failed to spawn background worker: '.$e->getMessage(),
-                ]);
+        if (str_contains($php, 'fpm')) {
+            $php = str_replace('fpm', 'cli', $php);
+            if (! file_exists($php)) {
+                $php = 'php';
             }
+        }
+
+        $artisan = base_path('artisan');
+        $command = "\"{$php}\" \"{$artisan}\" app:ssh-terminal {$this->server->id} --log-id={$logId} > /dev/null 2>&1 &";
+
+        try {
+            exec($command, $output, $resultCode);
+            if ($resultCode !== 0) {
+                \Log::warning("Background worker failed to start locally for server {$this->server->id}");
+            }
+        } catch (\Exception $e) {
+            \Log::error('Failed to spawn local background worker: '.$e->getMessage());
+        }
+    }
+
+    protected function spawnProxyWorker($logId)
+    {
+        try {
+            Http::withHeaders([
+                'X-Internal-Token' => config('sshelf.engine.internal_token'),
+            ])->post(config('sshelf.engine.proxy_url'), [
+                'server_id' => $this->server->id,
+                'log_id' => $logId,
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Failed to spawn proxy background worker: '.$e->getMessage());
+            $this->spawnLocalWorker($logId); // Fallback
         }
     }
 

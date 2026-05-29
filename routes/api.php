@@ -18,4 +18,28 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('ssh-keys', SshKeyController::class);
     Route::apiResource('tags', TagController::class);
     Route::apiResource('quick-commands', QuickCommandController::class);
+
+    // Proxy Dispatcher for Terminal
+    Route::post('internal/spawn-terminal', function (Request $request) {
+        $serverId = $request->integer('server_id');
+        $logId = $request->integer('log_id');
+        $token = $request->header('X-Internal-Token');
+
+        // Simple shared secret for internal communication
+        if ($token !== config('sshelf.internal_token')) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        $php = config('app.php_binary', 'php');
+        if (str_contains($php, 'fpm')) {
+            $php = str_replace('fpm', 'cli', $php);
+        }
+
+        $artisan = base_path('artisan');
+        $command = "\"{$php}\" \"{$artisan}\" app:ssh-terminal {$serverId} --log-id={$logId} > /dev/null 2>&1 &";
+
+        exec($command);
+
+        return response()->json(['status' => 'spawned']);
+    });
 });
