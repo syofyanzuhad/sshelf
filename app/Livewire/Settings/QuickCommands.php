@@ -5,9 +5,11 @@ namespace App\Livewire\Settings;
 use App\Models\QuickCommand;
 use App\Models\Server;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Title('Quick Commands')]
 class QuickCommands extends Component
 {
     use WithPagination;

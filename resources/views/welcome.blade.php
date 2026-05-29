@@ -1,4 +1,4 @@
-<x-marketing-layout>
+<x-marketing-layout title="Home">
     <x-home.hero />
     <x-home.features />
     <x-home.quick-start />

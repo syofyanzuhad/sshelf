@@ -3,9 +3,11 @@
 namespace App\Livewire\Servers;
 
 use App\Models\ConnectionLog;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Title('Connection Logs')]
 class ConnectionLogs extends Component
 {
     use WithPagination;

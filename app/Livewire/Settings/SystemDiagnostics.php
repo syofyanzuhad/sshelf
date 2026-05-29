@@ -7,8 +7,10 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title('System Diagnostics')]
 class SystemDiagnostics extends Component
 {
     public array $checks = [];

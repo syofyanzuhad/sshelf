@@ -5,9 +5,10 @@ namespace App\Livewire\Servers;
 use App\Models\ConnectionLog;
 use App\Models\Server;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Process;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title('Terminal')]
 class ServerTerminal extends Component
 {
     public Server $server;

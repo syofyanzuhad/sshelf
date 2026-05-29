@@ -5,9 +5,11 @@ namespace App\Livewire\Settings;
 use App\Enums\UserRole;
 use App\Models\Invitation;
 use App\Models\User;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Title('User Management')]
 class Users extends Component
 {
     use WithPagination;

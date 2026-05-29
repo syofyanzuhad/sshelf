@@ -4,10 +4,12 @@ namespace App\Livewire\Settings;
 
 use App\Models\SshKey;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 use phpseclib3\Crypt\EC;
 
+#[Title('SSH Keys')]
 class SshKeys extends Component
 {
     use WithPagination;

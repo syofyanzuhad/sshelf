@@ -3,8 +3,10 @@
 namespace App\Livewire\Settings;
 
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title('API Tokens')]
 class ApiTokens extends Component
 {
     public $tokenName = '';

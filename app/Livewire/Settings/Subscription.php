@@ -4,8 +4,10 @@ namespace App\Livewire\Settings;
 
 use App\Enums\Plan;
 use Illuminate\View\View;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title('Subscription')]
 class Subscription extends Component
 {
     /**
