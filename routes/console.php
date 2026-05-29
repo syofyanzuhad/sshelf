@@ -18,4 +18,4 @@ Schedule::call(function () {
             'status' => 'failed',
             'error' => 'Connection initialization timed out (background worker failed to start).',
         ]);
-})->everyFiveMinutes();
+})->hourly();

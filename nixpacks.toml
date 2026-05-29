@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["php83", "nodejs", "nginx", "python311Packages.supervisor"]
+nixPkgs = ["...", "python311Packages.supervisor"]
 
 [phases.build]
 cmds = [
@@ -7,7 +7,8 @@ cmds = [
     "mkdir -p /etc/supervisor/conf.d/",
     "cp /assets/worker-*.conf /etc/supervisor/conf.d/",
     "cp /assets/supervisord.conf /etc/supervisord.conf",
-    "chmod +x /assets/start.sh"
+    "chmod +x /assets/start.sh",
+    "..."
 ]
 
 [start]
@@ -144,10 +145,10 @@ stderr_logfile=/app/storage/logs/worker-nightwatch.log
 "php-fpm.conf" = '''
 [www]
 listen = 127.0.0.1:9000
-user = root
-group = root
-listen.owner = root
-listen.group = root
+user = www-data
+group = www-data
+listen.owner = www-data
+listen.group = www-data
 pm = dynamic
 pm.max_children = 50
 pm.min_spare_servers = 4
@@ -159,7 +160,7 @@ php_admin_value[upload_max_filesize] = 30M
 '''
 
 "nginx.template.conf" = '''
-user root root;
+user www-data www-data;
 worker_processes 5;
 daemon off;
 
