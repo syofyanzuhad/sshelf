@@ -131,7 +131,16 @@ class ServerTerminal extends Component
 
     public function render()
     {
-        return view('livewire.servers.server-terminal')
-            ->layout('layouts.app');
+        $engineMode = config('sshelf.engine.mode', 'local');
+        $proxyUrl = config('sshelf.engine.proxy_url');
+
+        $engineLabel = $engineMode === 'proxy' && $proxyUrl
+            ? 'Proxied ('.parse_url($proxyUrl, PHP_URL_HOST).')'
+            : 'Local Node';
+
+        return view('livewire.servers.server-terminal', [
+            'engineLabel' => $engineLabel,
+            'engineMode' => $engineMode,
+        ])->layout('layouts.app');
     }
 }

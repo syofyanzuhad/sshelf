@@ -46,6 +46,17 @@
                         <div id="reverb-dot" class="w-2 h-2 rounded-full bg-yellow-500"></div>
                         <span class="text-[10px] font-bold uppercase tracking-tighter text-gray-600 dark:text-gray-500">Socket</span>
                     </div>
+
+                    <div class="flex items-center space-x-2 border-l border-gray-800 pl-3 ml-1">
+                        <span class="text-[10px] font-bold uppercase tracking-tighter text-gray-400 dark:text-gray-500">Engine:</span>
+                        <span @class([
+                            'px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-tight',
+                            'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20' => $engineMode === 'local',
+                            'bg-amber-500/10 text-amber-400 border border-amber-500/20' => $engineMode === 'proxy',
+                        ])>
+                            {{ $engineLabel }}
+                        </span>
+                    </div>
                 </div>
             </div>
 
