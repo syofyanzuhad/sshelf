@@ -7,21 +7,8 @@ use App\Http\Controllers\Api\V1\TagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
-
-    Route::apiResource('servers', ServerController::class);
-    Route::post('servers/{server}/execute', [ServerController::class, 'execute']);
-
-    Route::apiResource('ssh-keys', SshKeyController::class);
-    Route::apiResource('tags', TagController::class);
-    Route::apiResource('quick-commands', QuickCommandController::class);
-});
-
 // Proxy Dispatcher for Terminal (Internal use only)
-Route::post('internal/spawn-terminal', function (Request $request) {
+Route::post('worker/spawn-terminal', function (Request $request) {
     $serverId = $request->integer('server_id');
     $logId = $request->integer('log_id');
     $token = $request->header('X-Internal-Token');
@@ -42,4 +29,17 @@ Route::post('internal/spawn-terminal', function (Request $request) {
     exec($command);
 
     return response()->json(['status' => 'spawned']);
+})->withoutMiddleware(['api']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::apiResource('servers', ServerController::class);
+    Route::post('servers/{server}/execute', [ServerController::class, 'execute']);
+
+    Route::apiResource('ssh-keys', SshKeyController::class);
+    Route::apiResource('tags', TagController::class);
+    Route::apiResource('quick-commands', QuickCommandController::class);
 });

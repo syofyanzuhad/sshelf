@@ -60,7 +60,7 @@ return [
 
     'engine' => [
         'mode' => env('SSHELF_ENGINE_MODE', 'local'), // 'local' or 'proxy'
-        'proxy_url' => env('SSHELF_ENGINE_PROXY_URL'), // e.g. https://your-vps.com/api/v1/internal/spawn-terminal
+        'proxy_url' => env('SSHELF_ENGINE_PROXY_URL'), // e.g. https://your-vps.com/api/worker/spawn-terminal
         'internal_token' => env('SSHELF_INTERNAL_TOKEN'),
     ],
 
