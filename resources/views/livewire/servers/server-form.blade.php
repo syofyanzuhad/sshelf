@@ -40,74 +40,33 @@
                     <x-input-error :messages="$errors->get('auth_type')" class="mt-2" />
                 </div>
 
-                @if($auth_type === 'password')
-                    <div>
-                        <x-input-label for="password" value="Password" />
-                        <div class="relative mt-1" x-data="{ show: false }">
-                            <x-text-input id="password" x-bind:type="show ? 'text' : 'password'" class="block w-full pr-10" wire:model="password" />
-                            <button type="button" 
-                                    class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors focus:outline-none"
-                                    @click="show = !show"
-                                    title="Toggle password visibility">
-                                <svg x-show="!show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                </svg>
-                                <svg x-show="show" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7 1.274-4.057 5.064-7 9.542-7 1.274 0 2.443.218 3.512.612M15 12a3 3 0 11-6 0 3 3 0 016 0zm-9 9l12-12" />
-                                </svg>
-                            </button>
-                        </div>
-                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                    </div>
-                @else
-                    <div class="space-y-4">
+                <!-- E2EE Notice -->
+                <div class="p-4 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800 rounded-lg">
+                    <div class="flex items-start">
+                        <svg class="w-5 h-5 text-emerald-500 mt-0.5 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
                         <div>
-                            <x-input-label for="ssh_key_id" value="Select Saved SSH Key (Optional)" />
-                            <select id="ssh_key_id" wire:model.live="ssh_key_id" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
-                                <option value="">-- Use One-time Key --</option>
-                                @foreach($sshKeys as $key)
-                                    <option value="{{ $key->id }}">{{ $key->name }}</option>
-                                @endforeach
-                            </select>
-                            <x-input-error :messages="$errors->get('ssh_key_id')" class="mt-2" />
+                            <h3 class="text-sm font-medium text-emerald-800 dark:text-emerald-400">End-to-End Encrypted</h3>
+                            <p class="mt-1 text-xs text-emerald-700 dark:text-emerald-500 leading-relaxed">
+                                For your security, passwords and private keys can only be managed via the 
+                                <strong class="text-emerald-900 dark:text-emerald-300">Sshelf Desktop App</strong>. 
+                                Metadata synced from this web dashboard is automatically protected with your local vault password.
+                            </p>
                         </div>
+                    </div>
+                </div>
 
-                        @if(!$ssh_key_id)
-                            <div>
-                                <x-input-label for="private_key" value="Private Key" />
-                                <textarea id="private_key" wire:model="private_key" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" rows="5"></textarea>
-                                <x-input-error :messages="$errors->get('private_key')" class="mt-2" />
-                            </div>
-                            <div>
-                                <x-input-label for="passphrase" value="Passphrase (Optional)" />
-                                <div class="relative mt-1" x-data="{ show: false }">
-                                    <x-text-input id="passphrase" x-bind:type="show ? 'text' : 'password'" class="block w-full pr-10" wire:model="passphrase" />
-                                    <button type="button" 
-                                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors focus:outline-none"
-                                            @click="show = !show"
-                                            title="Toggle passphrase visibility">
-                                        <svg x-show="!show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                        </svg>
-                                        <svg x-show="show" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7 1.274-4.057 5.064-7 9.542-7 1.274 0 2.443.218 3.512.612M15 12a3 3 0 11-6 0 3 3 0 016 0zm-9 9l12-12" />
-                                        </svg>
-                                    </button>
-                                </div>
-                                <x-input-error :messages="$errors->get('passphrase')" class="mt-2" />
-                            </div>
-                        @else
-                            <div class="p-3 bg-indigo-50 dark:bg-indigo-900/30 rounded-lg border border-indigo-100 dark:border-indigo-800">
-                                <div class="flex items-center space-x-2 text-sm text-indigo-700 dark:text-indigo-300">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    <span>Using linked key from your manager.</span>
-                                </div>
-                            </div>
-                        @endif
+                @if($auth_type === 'key')
+                    <div>
+                        <x-input-label for="ssh_key_id" value="Select Saved SSH Key (Optional)" />
+                        <select id="ssh_key_id" wire:model.live="ssh_key_id" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                            <option value="">-- Use One-time Key (Desktop Only) --</option>
+                            @foreach($sshKeys as $key)
+                                <option value="{{ $key->id }}">{{ $key->name }}</option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('ssh_key_id')" class="mt-2" />
                     </div>
                 @endif
 
@@ -139,20 +98,14 @@
                     @endif
                 </div>
 
-                <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
-                    <x-secondary-button type="button" wire:click="testConnection" wire:loading.attr="disabled" class="w-full sm:w-auto justify-center">
-                        Test Connection
+                <div class="flex items-center space-x-3 w-full sm:w-auto">
+                    <x-secondary-button x-on:click="$dispatch('close-modal', 'server-form-modal')" class="flex-1 sm:flex-none justify-center">
+                        Cancel
                     </x-secondary-button>
 
-                    <div class="flex items-center space-x-3 w-full sm:w-auto">
-                        <x-secondary-button x-on:click="$dispatch('close-modal', 'server-form-modal')" class="flex-1 sm:flex-none justify-center">
-                            Cancel
-                        </x-secondary-button>
-
-                        <x-primary-button class="flex-1 sm:flex-none justify-center">
-                            {{ $server ? 'Update' : 'Save' }}
-                        </x-primary-button>
-                    </div>
+                    <x-primary-button class="flex-1 sm:flex-none justify-center">
+                        {{ $server ? 'Update Metadata' : 'Save Metadata' }}
+                    </x-primary-button>
                 </div>
             </div>
         </form>

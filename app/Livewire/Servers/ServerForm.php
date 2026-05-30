@@ -27,10 +27,9 @@ class ServerForm extends Component
 
     public ?int $ssh_key_id = null;
 
+    // Fields kept for property existence but not used for E2EE compliance on web
     public string $password = '';
-
     public string $private_key = '';
-
     public string $passphrase = '';
 
     public string $group = '';
@@ -46,9 +45,6 @@ class ServerForm extends Component
             'username' => 'required|string|max:255',
             'auth_type' => 'required|in:password,key',
             'ssh_key_id' => 'nullable|exists:ssh_keys,id',
-            'password' => 'required_if:auth_type,password',
-            'private_key' => 'required_if:auth_type,key|exclude_if:ssh_key_id,!=,null',
-            'passphrase' => 'nullable|string',
             'group' => 'nullable|string|max:255',
             'notes' => 'nullable|string',
         ];
@@ -75,9 +71,10 @@ class ServerForm extends Component
         $this->username = $server->username;
         $this->auth_type = $server->auth_type;
         $this->ssh_key_id = $server->ssh_key_id;
-        $this->password = $server->password ?? '';
-        $this->private_key = $server->private_key ?? '';
-        $this->passphrase = $server->passphrase ?? '';
+        // DO NOT load credentials on web
+        $this->password = '';
+        $this->private_key = '';
+        $this->passphrase = '';
         $this->group = $server->group ?? '';
         $this->notes = $server->notes ?? '';
         $this->dispatch('open-modal', 'server-form-modal');
@@ -95,9 +92,6 @@ class ServerForm extends Component
             'username' => $this->username,
             'auth_type' => $this->auth_type,
             'ssh_key_id' => $this->ssh_key_id ?: null,
-            'password' => $this->auth_type === 'password' ? $this->password : null,
-            'private_key' => ($this->auth_type === 'key' && ! $this->ssh_key_id) ? $this->private_key : null,
-            'passphrase' => ($this->auth_type === 'key' && ! $this->ssh_key_id) ? $this->passphrase : null,
             'group' => $this->group,
             'notes' => $this->notes,
         ];
@@ -116,44 +110,18 @@ class ServerForm extends Component
 
     public function testConnection(SshService $sshService)
     {
-        $this->validate();
-
-        $tempServer = new Server([
-            'host' => $this->host,
-            'port' => $this->port,
-            'username' => $this->username,
-            'auth_type' => $this->auth_type,
-            'ssh_key_id' => $this->ssh_key_id,
-            'password' => $this->password,
-            'private_key' => $this->private_key,
-            'passphrase' => $this->passphrase,
-        ]);
-
-        // If an SSH key is linked, load it to ensure relationships work in the temp model
-        if ($this->ssh_key_id) {
-            $tempServer->setRelation('sshKey', SshKey::find($this->ssh_key_id));
-        }
-
-        $result = $sshService->testConnection($tempServer);
-
-        if ($result['success']) {
-            session()->flash('message', 'Success: '.$result['message']);
-        } else {
-            session()->flash('error', 'Error: '.$result['message']);
-        }
+        session()->flash('error', 'Use Sshelf Desktop to manage encrypted credentials and test connections.');
     }
 
     public function render()
     {
         $groups = Server::query()
-
             ->whereNotNull('group')
             ->distinct()
             ->orderBy('group')
             ->pluck('group');
 
         $sshKeys = SshKey::query()
-
             ->orderBy('name')
             ->get();
 
