@@ -28,8 +28,8 @@ class SshKeyController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'public_key' => 'required|string',
-            'private_key' => 'required|string',
+            'public_key' => 'nullable|string',
+            'private_key' => 'nullable|string',
             'passphrase' => 'nullable|string',
         ]);
 
@@ -51,8 +51,8 @@ class SshKeyController extends Controller
 
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255',
-            'public_key' => 'sometimes|required|string',
-            'private_key' => 'sometimes|required|string',
+            'public_key' => 'nullable|string',
+            'private_key' => 'nullable|string',
             'passphrase' => 'nullable|string',
         ]);
 

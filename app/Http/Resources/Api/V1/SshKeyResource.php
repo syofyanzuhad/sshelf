@@ -18,6 +18,8 @@ class SshKeyResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'public_key' => $this->public_key,
+            'private_key' => $this->private_key,
+            'passphrase' => $this->passphrase,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
