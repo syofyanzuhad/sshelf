@@ -80,3 +80,33 @@ test('can list quick commands', function () {
         ->assertStatus(200)
         ->assertJsonCount(2, 'data');
 });
+
+test('server resource returns sensitive fields for E2EE sync', function () {
+    $server = Server::factory()->create([
+        'user_id' => $this->user->id,
+        'password' => 'vault-encrypted-password-blob',
+        'private_key' => 'vault-encrypted-key-blob',
+        'passphrase' => 'vault-encrypted-passphrase-blob',
+    ]);
+
+    $response = $this->getJson("/api/v1/servers/{$server->id}")
+        ->assertStatus(200);
+
+    $response->assertJsonPath('data.password', 'vault-encrypted-password-blob');
+    $response->assertJsonPath('data.private_key', 'vault-encrypted-key-blob');
+    $response->assertJsonPath('data.passphrase', 'vault-encrypted-passphrase-blob');
+});
+
+test('ssh key resource returns sensitive fields for E2EE sync', function () {
+    $sshKey = SshKey::factory()->create([
+        'user_id' => $this->user->id,
+        'private_key' => 'vault-encrypted-ssh-key-blob',
+        'passphrase' => 'vault-encrypted-ssh-passphrase-blob',
+    ]);
+
+    $response = $this->getJson("/api/v1/ssh-keys/{$sshKey->id}")
+        ->assertStatus(200);
+
+    $response->assertJsonPath('data.private_key', 'vault-encrypted-ssh-key-blob');
+    $response->assertJsonPath('data.passphrase', 'vault-encrypted-ssh-passphrase-blob');
+});
