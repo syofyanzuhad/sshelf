@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 
 class DesktopLoginController extends Controller
@@ -10,22 +10,27 @@ class DesktopLoginController extends Controller
     /**
      * Handle the desktop login bridge.
      */
-    public function __invoke(Request $request): RedirectResponse
+    public function __invoke(Request $request): View
     {
         $user = $request->user();
 
         // 1. Generate the token
         $token = $user->createToken('Sshelf Desktop')->plainTextToken;
 
-        // 2. Build query parameters
-        $params = http_build_query([
+        // 2. Build configuration data
+        $config = [
             'token' => $token,
             'url' => config('app.url').'/api/v1',
             'reverb_key' => config('reverb.apps.apps.0.key'),
-            'reverb_port' => config('reverb.apps.apps.0.options.port'),
-        ]);
+            'reverb_port' => (string) config('reverb.apps.apps.0.options.port'),
+        ];
 
-        // 3. Redirect to the desktop app scheme
-        return redirect()->away("sshelf://auth?{$params}");
+        // 3. Build the deep link URL
+        $deeplink = "sshelf://auth?".http_build_query($config);
+
+        return view('auth.desktop-bridge', [
+            'deeplink' => $deeplink,
+            'config' => $config,
+        ]);
     }
 }

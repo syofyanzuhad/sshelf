@@ -2,22 +2,24 @@
 
 use App\Models\User;
 
-test('it redirects to the desktop app scheme with a token', function () {
+test('it returns the desktop login bridge view with configuration', function () {
     $user = User::factory()->create();
 
     $response = $this->actingAs($user)
         ->get(route('desktop.login'));
 
-    $response->assertRedirect();
-    $targetUrl = $response->headers->get('Location');
+    $response->assertOk();
+    $response->assertViewIs('auth.desktop-bridge');
+    
+    $response->assertViewHas('deeplink');
+    $response->assertViewHas('config');
 
-    expect($targetUrl)->toStartWith('sshelf://auth?');
+    $deeplink = $response->viewData('deeplink');
+    $config = $response->viewData('config');
 
-    $queryString = parse_url($targetUrl, PHP_URL_QUERY);
-    parse_str($queryString, $params);
-
-    expect($params)->toHaveKeys(['token', 'url', 'reverb_key', 'reverb_port']);
-    expect($params['url'])->toBe(config('app.url').'/api/v1');
+    expect($deeplink)->toStartWith('sshelf://auth?');
+    expect($config)->toHaveKeys(['token', 'url', 'reverb_key', 'reverb_port']);
+    expect($config['url'])->toBe(config('app.url').'/api/v1');
 
     // Verify token was created
     expect($user->tokens)->toHaveCount(1);
