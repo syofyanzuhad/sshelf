@@ -28,6 +28,7 @@ class User extends Authenticatable
         'role',
         'parent_id',
         'plan',
+        'vault_check',
     ];
 
     /**

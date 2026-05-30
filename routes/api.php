@@ -13,7 +13,6 @@ Route::post('worker/spawn-terminal', function (Request $request) {
     $logId = $request->integer('log_id');
     $token = $request->header('X-Internal-Token');
 
-    // Simple shared secret for internal communication
     if ($token !== config('sshelf.internal_token')) {
         return response()->json(['message' => 'Unauthorized'], 401);
     }
@@ -34,6 +33,12 @@ Route::post('worker/spawn-terminal', function (Request $request) {
 Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
+    });
+
+    Route::post('/user/vault-check', function (Request $request) {
+        $request->validate(['vault_check' => 'required|string']);
+        $request->user()->update(['vault_check' => $request->vault_check]);
+        return response()->json(['ok' => true]);
     });
 
     Route::apiResource('servers', ServerController::class);
