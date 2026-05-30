@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DesktopLoginController;
 use App\Livewire\Servers\ConnectionLogs;
 use App\Livewire\Servers\ServerTerminal;
 use App\Livewire\Settings\ApiTokens;
@@ -15,6 +16,7 @@ Route::view('features', 'features')->name('features');
 Route::view('compare', 'compare')->name('compare');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('desktop/login', DesktopLoginController::class)->name('desktop.login');
     Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::get('servers/{server}/terminal', ServerTerminal::class)->name('servers.terminal');
     Route::get('logs', ConnectionLogs::class)->name('servers.logs');

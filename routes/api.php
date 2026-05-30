@@ -31,7 +31,7 @@ Route::post('worker/spawn-terminal', function (Request $request) {
     return response()->json(['status' => 'spawned']);
 })->withoutMiddleware(['api']);
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
