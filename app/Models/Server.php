@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Casts\EncryptedNullable;
 use App\Traits\BelongsToTenant;
 use Database\Factories\ServerFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,9 +36,6 @@ class Server extends Model
     ];
 
     protected $casts = [
-        'password' => EncryptedNullable::class,
-        'private_key' => EncryptedNullable::class,
-        'passphrase' => EncryptedNullable::class,
         'port' => 'integer',
         'last_checked_at' => 'datetime',
         'cpu_usage' => 'float',

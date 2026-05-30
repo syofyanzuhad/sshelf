@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Casts\EncryptedNullable;
 use App\Traits\BelongsToTenant;
 use Database\Factories\SshKeyFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,8 +23,6 @@ class SshKey extends Model
     ];
 
     protected $casts = [
-        'private_key' => EncryptedNullable::class,
-        'passphrase' => EncryptedNullable::class,
     ];
 
     public function user(): BelongsTo
