@@ -19,3 +19,5 @@ Schedule::call(function () {
             'error' => 'Connection initialization timed out (background worker failed to start).',
         ]);
 })->hourly();
+
+Schedule::command('telescope:prune', ['--hours' => 48])->daily();
