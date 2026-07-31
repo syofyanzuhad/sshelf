@@ -20,4 +20,4 @@ Schedule::call(function () {
         ]);
 })->hourly();
 
-Schedule::command('telescope:prune', ['--hours' => 48])->hourly();
+Schedule::command('telescope:prune')->hourly();
